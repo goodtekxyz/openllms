@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#111111" />
+  <title>llms — 요금</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="/assets/theme-boot.js"></script>
+  <link rel="stylesheet" href="/assets/landing.css" />
+  <link rel="stylesheet" href="/assets/app-shell.css" />
+  <link rel="stylesheet" href="/assets/billing.css" />
+</head>
+<body class="app-page billing-page">
+  <a class="skip" href="#main">본문으로</a>
+  <!--LLMS_APP_HEADER-->
+
+  <main id="main" class="app-main billing-main">
+    <header class="app-page-header billing-header">
+      <h1>요금</h1>
+      <p class="lead">llms 허브 — 라우팅, 남은 한도 보드, API 주소 이용료입니다. Claude·Codex·API 사용료는 본인 계정에 그대로 청구됩니다.</p>
+      <p class="sub">7일 체험 1회 · Starter $5/월 · Pro $9/월 · 카드(Polar) 또는 암호화폐(Unifi Pay)</p>
+    </header>
+
+    <div id="flash" class="app-banner ok hidden" role="status"></div>
+
+    <section id="login-section" class="billing-login">
+      <div class="login-card billing-login-card">
+        <h2 class="login-card-title">GitHub로 로그인</h2>
+        <p class="login-card-lead">플랜·체험·결제를 진행하려면 로그인하세요. 터미널에서는 <code>llms plan</code> · <code>llms trial</code> · <code>llms upgrade</code>도 사용할 수 있습니다.</p>
+        <a class="btn btn-primary" id="btn-signin" href="/auth/github?next=/billing"><svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.23c-3.34.73-4.03-1.42-4.03-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.74.08-.74 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.49.99.1-.78.42-1.31.76-1.61-2.67-.3-5.48-1.33-5.48-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23.96-.27 1.98-.41 3.01-.41 1.02 0 2.04.14 3.01.41 2.29-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.87.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.8 5.62-5.48 5.93.36.31.68.92.68 1.86v2.76c0 .27.18.7.83.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg><span id="btn-signin-label">GitHub로 로그인</span></a>
+      </div>
+    </section>
+
+    <div id="signed-in-panel" class="hidden">
+      <section class="status-card" id="status-box" aria-live="polite">
+        <h2>플랜 상태</h2>
+        <p class="muted">불러오는 중…</p>
+      </section>
+
+      <div class="billing-actions">
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-trial" disabled>7일 체험 시작</button>
+        <a class="btn btn-secondary btn-sm" href="/console">콘솔 열기</a>
+      </div>
+
+      <div class="plans-grid">
+        <article class="plan-card">
+          <h2>Starter</h2>
+          <p class="plan-price">$5 <span>/ 월</span></p>
+          <ul>
+            <li>계정 5 · 라우트 3 · 키 3</li>
+            <li>60 RPM · soft 토큰 10M</li>
+          </ul>
+          <div class="plan-actions">
+            <button type="button" class="btn btn-primary btn-sm" data-checkout="starter" data-provider="polar">카드 결제</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-checkout="starter" data-provider="unifi">암호화폐</button>
+          </div>
+        </article>
+        <article class="plan-card">
+          <h2>Pro</h2>
+          <p class="plan-price">$9 <span>/ 월</span></p>
+          <ul>
+            <li>계정 20 · 라우트 15 · 키 10</li>
+            <li>120 RPM · soft 토큰 50M</li>
+          </ul>
+          <div class="plan-actions">
+            <button type="button" class="btn btn-primary btn-sm" data-checkout="pro" data-provider="polar">카드 결제</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-checkout="pro" data-provider="unifi">암호화폐</button>
+          </div>
+        </article>
+      </div>
+
+      <p class="billing-note muted">Polar 상품은 vibePulse와 별도입니다. 계정·라우트는 <a href="/console">콘솔</a>에서 관리하세요. 운영자: <a href="/admin">관리자</a></p>
+    </div>
+  </main>
+
+  <!--LLMS_APP_FOOTER-->
+
+  <script src="/assets/theme.js" defer></script>
+  <script src="/assets/site-chrome.js" defer></script>
+  <script>
+  (function () {
+    var flash = document.getElementById("flash");
+    var loginSection = document.getElementById("login-section");
+    var signedInPanel = document.getElementById("signed-in-panel");
+    var statusBox = document.getElementById("status-box");
+    var btnTrial = document.getElementById("btn-trial");
+    var navAccount = document.getElementById("nav-account");
+    var params = new URLSearchParams(location.search);
+
+    if (params.get("ok") || params.get("mock")) {
+      flash.className = "app-banner ok";
+      flash.textContent = "결제가 기록되었습니다. 아래 플랜 상태를 확인하세요.";
+      flash.classList.remove("hidden");
+    } else if (params.get("canceled")) {
+      flash.className = "app-banner info";
+      flash.textContent = "결제가 취소되었습니다.";
+      flash.classList.remove("hidden");
+    } else if (params.get("auth_error")) {
+      flash.className = "app-banner err";
+      flash.textContent = params.get("auth_error") + (params.get("auth_detail") ? ": " + params.get("auth_detail") : "");
+      flash.classList.remove("hidden");
+      history.replaceState({}, "", location.pathname);
+    }
+
+    function showSignedOut() {
+      loginSection.classList.remove("hidden");
+      signedInPanel.classList.add("hidden");
+      if (navAccount) navAccount.textContent = "";
+    }
+
+    function showSignedIn(login) {
+      loginSection.classList.add("hidden");
+      signedInPanel.classList.remove("hidden");
+      if (navAccount) navAccount.textContent = "@" + (login || "user");
+    }
+
+    function showErr(msg) {
+      flash.className = "app-banner err";
+      flash.textContent = msg;
+      flash.classList.remove("hidden");
+      flash.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    function fmtNum(n) {
+      if (n == null || n === '') return '—';
+      if (typeof n === 'string') {
+        const t = n.trim();
+        if (t === '' || t === '—') return '—';
+        if (Number.isNaN(Number(t))) return n;
+        n = t;
+      }
+      const num = Number(n);
+      if (!Number.isFinite(num)) return '—';
+      return num.toLocaleString('en-US');
+    }
+
+    function render(st) {
+      var lim = st.limits || {};
+      var use = st.usage_month || {};
+      statusBox.innerHTML =
+        "<h2>플랜 상태</h2>" +
+        "<dl>" +
+        "<dt>플랜</dt><dd>" + (st.plan || "none") + "</dd>" +
+        "<dt>상태</dt><dd>" + (st.status || "none") + "</dd>" +
+        "<dt>이용 가능</dt><dd>" + (st.entitled ? "예" : "아니오") + "</dd>" +
+        "<dt>체험 사용</dt><dd>" + (st.trial_used ? "예" : "아니오") + "</dd>" +
+        "<dt>기간 종료</dt><dd>" + (st.period_end || st.trial_ends_at || "—") + "</dd>" +
+        "<dt>결제</dt><dd>" + (st.provider || "—") + "</dd>" +
+        "<dt>한도</dt><dd>계정 " + fmtNum(lim.accounts) + " · 라우트 " + fmtNum(lim.routes) + " · 키 " + fmtNum(lim.keys) + " · RPM " + fmtNum(lim.rpm) + "</dd>" +
+        "<dt>사용량</dt><dd>토큰 " + fmtNum(use.tokens_total || 0) + " / " + fmtNum(use.soft_cap_tokens != null ? use.soft_cap_tokens : lim.soft_cap_tokens) + "</dd>" +
+        "<dt>결제 채널</dt><dd>Polar " + (st.rails && st.rails.polar ? "가능" : "불가") +
+        " · Unifi " + (st.rails && st.rails.unifi ? "가능" : "불가") +
+        " · Mock " + (st.rails && st.rails.mock ? "가능" : "불가") + "</dd>" +
+        "</dl>";
+      btnTrial.disabled = !!st.trial_used || !!st.entitled;
+    }
+
+    function load() {
+      return fetch("/billing/api/status", { credentials: "same-origin" })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+        .then(function (x) {
+          if (!x.ok) {
+            showSignedOut();
+            return;
+          }
+          showSignedIn(x.j.login);
+          render(x.j);
+        })
+        .catch(function (e) { showErr(String(e)); });
+    }
+
+    btnTrial.addEventListener("click", function () {
+      btnTrial.disabled = true;
+      fetch("/billing/api/trial", { method: "POST", credentials: "same-origin" })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+        .then(function (x) {
+          if (!x.ok) { showErr(x.j.error || "체험 시작 실패"); btnTrial.disabled = false; return; }
+          flash.className = "app-banner ok";
+          flash.textContent = "7일 체험이 시작되었습니다.";
+          flash.classList.remove("hidden");
+          render(x.j);
+        });
+    });
+
+    document.querySelectorAll("[data-checkout]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var plan = btn.getAttribute("data-checkout");
+        var provider = btn.getAttribute("data-provider");
+        btn.disabled = true;
+        fetch("/billing/api/checkout", {
+          method: "POST",
+          credentials: "same-origin",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ plan: plan, provider: provider })
+        })
+          .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+          .then(function (x) {
+            btn.disabled = false;
+            if (!x.ok) { showErr((x.j && (x.j.detail || x.j.error)) || "결제 시작 실패"); return; }
+            if (x.j.redirect) { location.href = x.j.redirect; return; }
+            load();
+          })
+          .catch(function (e) { btn.disabled = false; showErr(String(e)); });
+      });
+    });
+
+    load();
+  })();
+  </script>
+</body>
+</html>

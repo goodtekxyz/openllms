@@ -1,0 +1,29 @@
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="{{LOGO_HREF}}">{{LOGO_LABEL}}</a>
+    <div class="nav-right">
+      <nav class="nav-links" aria-label="{{NAV_ARIA}}">
+        <a class="hide-sm" href="{{HOME_HREF}}" {{ACTIVE_HOME}}>{{HOME_LABEL}}</a>
+        <a class="hide-sm" href="{{API_HREF}}" {{ACTIVE_API}}>{{API_LABEL}}</a>
+        <a href="{{INSTALL_HREF}}" {{ACTIVE_INSTALL}}>{{INSTALL_LABEL}}</a>
+        <a class="hide-sm" href="{{SELFHOST_HREF}}" {{ACTIVE_SELFHOST}}>{{SELFHOST_LABEL}}</a>
+        <a href="/console" {{ACTIVE_CONSOLE}}>{{CONSOLE_LABEL}}</a>
+      </nav>
+      <span id="nav-account" class="nav-account" aria-live="polite"></span>
+      <button type="button" class="theme-toggle" data-theme-toggle data-label-system="{{THEME_SYSTEM}}" data-label-light="{{THEME_LIGHT}}" data-label-dark="{{THEME_DARK}}" aria-label="{{THEME_SYSTEM}}">
+        <svg class="theme-icon theme-icon-system" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+        <svg class="theme-icon theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M4.93 19.07l1.41-1.41"/><path d="M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="theme-icon theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <details class="lang-dd">
+        <summary aria-label="{{LANG_ARIA}}"><span>{{LANG_SUMMARY}}</span><span class="chev" aria-hidden="true"></span></summary>
+        <div class="lang-menu" role="listbox">
+          <a href="{{LANG_KO_HREF}}" hreflang="ko" lang="ko" {{LANG_KO_CURRENT}}>한국어</a>
+          <a href="{{LANG_EN_HREF}}" hreflang="en" lang="en" {{LANG_EN_CURRENT}}>English</a>
+          <a href="{{LANG_JA_HREF}}" hreflang="ja" lang="ja" {{LANG_JA_CURRENT}}>日本語</a>
+          <a href="{{LANG_ZH_HREF}}" hreflang="zh" lang="zh" {{LANG_ZH_CURRENT}}>中文</a>
+        </div>
+      </details>
+    </div>
+  </div>
+</header>

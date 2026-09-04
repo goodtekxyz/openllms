@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>llms — Claude·Codex 구독, API 주소 하나</title>
+  <meta name="description" content="Claude·Codex 구독과 API 키를 하나의 주소로 묶습니다. Cursor·IDE·봇에 주소 하나만 넣으면 됩니다." />
+  <meta property="og:title" content="llms — 구독 여러 개, API 주소 하나" />
+  <meta property="og:description" content="Claude·Codex 구독을 API로. 대화·웹 검색·이미지도 같은 주소에서 호출합니다." />
+  <meta property="og:url" content="https://llms.goodtek.xyz/" />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#111111" />
+  <link rel="canonical" href="https://llms.goodtek.xyz/" />
+  <link rel="alternate" hreflang="ko" href="https://llms.goodtek.xyz/" />
+  <link rel="alternate" hreflang="en" href="https://llms.goodtek.xyz/en" />
+  <link rel="alternate" hreflang="ja" href="https://llms.goodtek.xyz/ja" />
+  <link rel="alternate" hreflang="zh" href="https://llms.goodtek.xyz/zh" />
+  <link rel="alternate" hreflang="x-default" href="https://llms.goodtek.xyz/en" />
+  <meta name="robots" content="index,follow" />
+  <meta property="og:site_name" content="llms by goodtek" />
+  <meta property="og:image" content="https://llms.goodtek.xyz/assets/og.png" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23111111'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-size='28' font-family='system-ui' fill='%23ffffff'%3Ell%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="/assets/theme-boot.js"></script>
+  <link rel="stylesheet" href="/assets/landing.css" />
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"llms","applicationCategory":"DeveloperApplication","url":"https://llms.goodtek.xyz/","description":"Claude·Codex 구독과 API 키를 하나의 API 주소로 묶습니다.","provider":{"@type":"Organization","name":"goodtek","url":"https://goodtek.xyz"}}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">본문으로</a>
+  <!--LLMS_PUBLIC_HEADER-->
+
+  <section class="hero hero-simple" aria-label="llms">
+    <div class="hero-inner hero-inner-simple">
+      <div class="hero-copy">
+        <p class="brand-mark">llms</p>
+        <h1>구독 여러 개,<br />API 주소 하나.</h1>
+        <p class="lede">Claude·Codex 구독과 API 키를 llms에 연결하세요. Cursor·IDE·봇에는 <strong>주소 하나</strong>만 넣으면 됩니다. 대화·웹 검색·이미지도 같은 API로 호출합니다.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/ko/install">시작하기</a>
+          <a class="btn btn-secondary" href="#api">API 보기</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main id="main">
+    <section class="block" id="how" aria-labelledby="how-title">
+      <div class="wrap">
+        <p class="kicker">시작하기</p>
+        <h2 id="how-title">세 단계면 충분합니다</h2>
+        <ol class="steps">
+          <li class="step">
+            <div class="n">01</div>
+            <h3>계정 연결</h3>
+            <p>Claude·Codex 구독이나 API 키를 등록합니다.</p>
+          </li>
+          <li class="step">
+            <div class="n">02</div>
+            <h3>API 주소 만들기</h3>
+            <p>라우트를 만들면 <code>/r/…/v1</code> 주소가 생깁니다.</p>
+          </li>
+          <li class="step">
+            <div class="n">03</div>
+            <h3>도구에 붙이기</h3>
+            <p>Base URL과 <code>sk-gt</code> 키만 넣으면 끝입니다.</p>
+          </li>
+        </ol>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/ko/install">설치 가이드</a>
+          <a class="btn btn-secondary" href="/console">콘솔에서 관리</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="api" aria-labelledby="api-title">
+      <div class="wrap">
+        <p class="kicker">API</p>
+        <h2 id="api-title">이렇게 호출하세요</h2>
+        <p class="section-lede">OpenAI Chat Completions 형식 그대로입니다. 주소와 키만 맞추면 Cursor·에이전트·스크립트 모두 같은 방식입니다.</p>
+        <div class="contract">
+          <code><strong>Base URL</strong> https://llms.goodtek.xyz/r/&lt;slug&gt;/v1</code>
+          <code><strong>호출</strong> POST …/chat/completions</code>
+          <code><strong>인증</strong> Authorization: Bearer sk-gt-…</code>
+        </div>
+        <div class="api-features">
+          <article class="api-feature">
+            <h3>대화</h3>
+            <p><code>messages</code>만 보내면 됩니다.</p>
+          </article>
+          <article class="api-feature">
+            <h3>웹 검색</h3>
+            <p><code>tools</code>에 <code>web_search</code>를 추가하세요.</p>
+          </article>
+          <article class="api-feature">
+            <h3>이미지</h3>
+            <p><code>tools</code>에 <code>generate_image</code>를 추가하세요.</p>
+          </article>
+        </div>
+        <div class="cmd">$ <em>curl -sS "https://llms.goodtek.xyz/r/MY_ROUTE/v1/chat/completions" \</em><br />
+  <em>-H "Authorization: Bearer sk-gt-…" \</em><br />
+  <em>-H "Content-Type: application/json" \</em><br />
+  <em>-d '{"model":"…","messages":[{"role":"user","content":"안녕"}]}'</em></div>
+        <p class="footnote">자세한 내용은 <a href="/LLMS_API.md">API 문서</a>를 참고하세요.</p>
+      </div>
+    </section>
+
+    <section class="block" id="self-host" aria-labelledby="selfhost-title">
+      <div class="wrap">
+        <p class="kicker">셀프호스트</p>
+        <h2 id="selfhost-title">직접 돌리고 싶다면 openllms</h2>
+        <p class="section-lede">엔진은 오픈소스입니다. SQLite·파일 시크릿으로 한 컨테이너에서 올릴 수 있습니다. 운영·TLS·팀 관리는 직접 하시면 됩니다.</p>
+        <div class="cmd">$ <em>docker compose -f deploy/oss/docker-compose.yml up --build</em></div>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://github.com/goodtekxyz/openllms" target="_blank" rel="noopener noreferrer">GitHub · openllms</a>
+          <a class="btn btn-secondary" href="/ko/install">클라우드 설치 가이드</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="faq" aria-labelledby="faq-title">
+      <div class="wrap">
+        <p class="kicker">FAQ</p>
+        <h2 id="faq-title">자주 묻는 질문</h2>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>llms가 뭔가요?</summary>
+            <p>Claude·Codex 구독이나 API 키를 llms에 연결해 두면, 쓰는 도구에는 API 주소 하나만 넣으면 됩니다. 계정이 여러 개여도 한도에 맞게 나눠 씁니다.</p>
+          </details>
+          <details class="faq-item">
+            <summary>어떤 도구에 붙이나요?</summary>
+            <p>OpenAI 호환 Base URL을 넣는 IDE·CLI·봇·스크립트면 됩니다. Cursor, Continue, 자체 봇 등 어디든.</p>
+          </details>
+          <details class="faq-item">
+            <summary>서버를 직접 띄워야 하나요?</summary>
+            <p>필수는 아닙니다. <a href="https://llms.goodtek.xyz">llms.goodtek.xyz</a>에서 바로 쓸 수 있습니다. 직접 운영하려면 <a href="https://github.com/goodtekxyz/openllms" target="_blank" rel="noopener noreferrer">openllms</a>로 셀프호스트하세요.</p>
+          </details>
+          <details class="faq-item">
+            <summary>콘솔은 뭐가 다른가요?</summary>
+            <p>브라우저에서 계정·라우트·키를 관리합니다. 터미널 CLI와 같은 일을 웹에서 할 수 있습니다.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!--LLMS_PUBLIC_FOOTER-->
+  <script src="/assets/site-chrome.js" defer></script>
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>

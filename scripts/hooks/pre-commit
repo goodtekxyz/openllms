@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Installed by scripts/install-git-hooks.sh
+set -euo pipefail
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+exec "$ROOT/scripts/vibeops-preflight.sh" --commit

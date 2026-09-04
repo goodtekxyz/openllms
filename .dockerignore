@@ -1,0 +1,13 @@
+.git
+bin/
+dist/
+data/
+data-dev/
+*.md
+!go.mod
+!go.sum
+docs/
+.cursor/
+.vibeops/
+.env
+.env.*

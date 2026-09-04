@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>llms — はじめる</title>
+  <link rel="canonical" href="https://llms.goodtek.xyz/ja/install" />
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="/assets/theme-boot.js"></script>
+  <link rel="stylesheet" href="/assets/install.css" />
+</head>
+<body>
+  <!--LLMS_PUBLIC_HEADER-->
+
+  <header class="hero">
+    <h1>はじめる</h1>
+    <p>CLI を入れてアカウントとルートを作り、Base URL と <code>sk-gt</code> を設定します。</p>
+  </header>
+
+  <div class="shell"><code>curl -fsSL https://llms.goodtek.xyz/install.sh | bash</code></div>
+
+  <article>
+    <section><h2>1. CLI インストール</h2><pre>curl -fsSL https://llms.goodtek.xyz/install.sh | bash</pre></section>
+    <section><h2>2. ログイン</h2><pre>llms login</pre></section>
+    <section><h2>3. アカウント・ルート</h2><pre>llms add
+llms route create
+llms route key &lt;slug&gt;</pre></section>
+    <section><h2>4. ツールに接続</h2>
+      <p>Base URL: <code>https://llms.goodtek.xyz/r/&lt;slug&gt;/v1</code> · <a href="/ja#api">API ガイド</a></p>
+    </section>
+    <section><h2>5. コンソール</h2><p><a href="/console">コンソール</a>でブラウザ管理もできます。</p></section>
+    <section>
+      <h2>6. セルフホスト</h2>
+      <p>自分で動かすなら <a href="https://github.com/goodtekxyz/openllms" target="_blank" rel="noopener noreferrer">openllms</a>（MIT）。</p>
+      <pre>docker compose -f deploy/oss/docker-compose.yml up --build</pre>
+    </section>
+  </article>
+
+  <!--LLMS_PUBLIC_FOOTER-->
+  <script src="/assets/site-chrome.js" defer></script>
+  <script src="/assets/copy.js" defer></script>
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>

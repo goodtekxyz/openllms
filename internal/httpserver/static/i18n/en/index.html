@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>llms — Claude & Codex subscriptions, one API URL</title>
+  <meta name="description" content="Combine Claude, Codex subscriptions and API keys into one URL. Plug it into Cursor, your IDE, or any bot." />
+  <meta property="og:title" content="llms — many accounts, one URL" />
+  <meta property="og:description" content="Chat, web search, and images through the same API address." />
+  <meta property="og:url" content="https://llms.goodtek.xyz/en" />
+  <meta name="theme-color" content="#111111" />
+  <link rel="canonical" href="https://llms.goodtek.xyz/en" />
+  <link rel="alternate" hreflang="ko" href="https://llms.goodtek.xyz/" />
+  <link rel="alternate" hreflang="en" href="https://llms.goodtek.xyz/en" />
+  <link rel="alternate" hreflang="ja" href="https://llms.goodtek.xyz/ja" />
+  <link rel="alternate" hreflang="zh" href="https://llms.goodtek.xyz/zh" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23111111'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-size='28' font-family='system-ui' fill='%23ffffff'%3Ell%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="/assets/theme-boot.js"></script>
+  <link rel="stylesheet" href="/assets/landing.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <!--LLMS_PUBLIC_HEADER-->
+
+  <section class="hero hero-simple" aria-label="llms">
+    <div class="hero-inner hero-inner-simple">
+      <div class="hero-copy">
+        <p class="brand-mark">llms</p>
+        <h1>Many accounts,<br />one API URL.</h1>
+        <p class="lede">Connect Claude, Codex subscriptions and API keys to llms. Your tools only need <strong>one address</strong>. Chat, web search, and images use the same API.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/en/install">Get started</a>
+          <a class="btn btn-secondary" href="#api">View API</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main id="main">
+    <section class="block" id="how" aria-labelledby="how-title">
+      <div class="wrap">
+        <p class="kicker">Get started</p>
+        <h2 id="how-title">Three steps</h2>
+        <ol class="steps">
+          <li class="step">
+            <div class="n">01</div>
+            <h3>Connect accounts</h3>
+            <p>Add Claude, Codex subscriptions or API keys.</p>
+          </li>
+          <li class="step">
+            <div class="n">02</div>
+            <h3>Create your URL</h3>
+            <p>Create a route and get a <code>/r/…/v1</code> address.</p>
+          </li>
+          <li class="step">
+            <div class="n">03</div>
+            <h3>Plug in your tool</h3>
+            <p>Set Base URL and your <code>sk-gt</code> key. Done.</p>
+          </li>
+        </ol>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/en/install">Install guide</a>
+          <a class="btn btn-secondary" href="/console">Open console</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="api" aria-labelledby="api-title">
+      <div class="wrap">
+        <p class="kicker">API</p>
+        <h2 id="api-title">How to call</h2>
+        <p class="section-lede">Standard OpenAI Chat Completions. Same shape for Cursor, agents, and scripts.</p>
+        <div class="contract">
+          <code><strong>Base URL</strong> https://llms.goodtek.xyz/r/&lt;slug&gt;/v1</code>
+          <code><strong>Call</strong> POST …/chat/completions</code>
+          <code><strong>Auth</strong> Authorization: Bearer sk-gt-…</code>
+        </div>
+        <div class="api-features">
+          <article class="api-feature">
+            <h3>Chat</h3>
+            <p>Send <code>messages</code>. That's it.</p>
+          </article>
+          <article class="api-feature">
+            <h3>Web search</h3>
+            <p>Add <code>web_search</code> in <code>tools</code>.</p>
+          </article>
+          <article class="api-feature">
+            <h3>Images</h3>
+            <p>Add <code>generate_image</code> in <code>tools</code>.</p>
+          </article>
+        </div>
+        <div class="cmd">$ <em>curl -sS "https://llms.goodtek.xyz/r/MY_ROUTE/v1/chat/completions" \</em><br />
+  <em>-H "Authorization: Bearer sk-gt-…" \</em><br />
+  <em>-H "Content-Type: application/json" \</em><br />
+  <em>-d '{"model":"…","messages":[{"role":"user","content":"Hi"}]}'</em></div>
+        <p class="footnote">See <a href="/LLMS_API.md">API docs</a> for details.</p>
+      </div>
+    </section>
+
+    <section class="block" id="self-host" aria-labelledby="selfhost-title">
+      <div class="wrap">
+        <p class="kicker">Self-host</p>
+        <h2 id="selfhost-title">Run it yourself with openllms</h2>
+        <p class="section-lede">The engine is open source. One container, local SQLite, file secrets. You handle ops, TLS, and teams.</p>
+        <div class="cmd">$ <em>docker compose -f deploy/oss/docker-compose.yml up --build</em></div>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://github.com/goodtekxyz/openllms" target="_blank" rel="noopener noreferrer">GitHub · openllms</a>
+          <a class="btn btn-secondary" href="/en/install">Cloud install guide</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="faq" aria-labelledby="faq-title">
+      <div class="wrap">
+        <p class="kicker">FAQ</p>
+        <h2 id="faq-title">Questions</h2>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>What is llms?</summary>
+            <p>Connect Claude, Codex, or API keys once. Your tools use one URL. Multiple accounts are routed for you.</p>
+          </details>
+          <details class="faq-item">
+            <summary>What can I connect?</summary>
+            <p>Any tool that accepts an OpenAI-compatible Base URL — Cursor, Continue, CLI, bots, scripts.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Do I need to self-host?</summary>
+            <p>No. Use <a href="https://llms.goodtek.xyz">llms.goodtek.xyz</a> directly. Prefer your own box? Use <a href="https://github.com/goodtekxyz/openllms" target="_blank" rel="noopener noreferrer">openllms</a>.</p>
+          </details>
+          <details class="faq-item">
+            <summary>What is the console?</summary>
+            <p>Manage accounts, routes, and keys in the browser — same as the CLI, in a web app.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!--LLMS_PUBLIC_FOOTER-->
+  <script src="/assets/site-chrome.js" defer></script>
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>

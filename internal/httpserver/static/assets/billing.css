@@ -1,0 +1,174 @@
+/* llms billing — extends app-shell.css */
+
+.billing-login {
+  margin-bottom: 1.5rem;
+}
+
+.billing-login-card {
+  max-width: 28rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  background: var(--surface);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--ink) 4%, transparent);
+}
+
+.billing-login-card .login-card-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.35rem;
+  letter-spacing: -0.03em;
+  margin: 0 0 0.5rem;
+  color: var(--ink);
+}
+
+.billing-login-card .login-card-lead {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  margin: 0 0 1.15rem;
+}
+
+.billing-login-card .btn-primary {
+  width: 100%;
+}
+
+.billing-login-card .device-box {
+  margin-top: 1.15rem;
+  margin-bottom: 0;
+}
+
+.billing-note {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin-top: 0.5rem;
+}
+
+.billing-note a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.billing-note a:hover {
+  color: var(--ink);
+}
+
+.status-card {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1.15rem 1.25rem;
+  background: var(--surface);
+  margin-bottom: 1.25rem;
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--ink) 4%, transparent);
+}
+
+.status-card h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.1rem;
+  letter-spacing: -0.03em;
+  margin: 0 0 0.85rem;
+}
+
+.status-card dl {
+  display: grid;
+  grid-template-columns: minmax(6.5rem, 8rem) 1fr;
+  gap: 0.4rem 1rem;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.status-card dt {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.status-card dd {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  color: var(--ink);
+  word-break: break-word;
+}
+
+.billing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.plans-grid {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 640px) {
+  .plans-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.plan-card {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1.25rem 1.3rem;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  transition: border-color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+
+.plan-card:hover {
+  border-color: var(--line-strong);
+  transform: translateY(-2px);
+}
+
+.plan-card h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.45rem;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.plan-price {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  color: var(--ink);
+}
+
+.plan-price span {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.plan-card ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.plan-card .plan-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plan-card:hover { transform: none; }
+}
+
+@media (max-width: 640px) {
+  .status-card dl {
+    grid-template-columns: 1fr;
+    gap: 0.15rem 0;
+  }
+  .status-card dt { margin-top: 0.5rem; }
+}

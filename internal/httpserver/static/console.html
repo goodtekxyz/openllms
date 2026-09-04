@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#111111" />
+  <title>llms 콘솔</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="/assets/theme-boot.js"></script>
+  <link rel="stylesheet" href="/assets/landing.css" />
+  <link rel="stylesheet" href="/assets/app-shell.css" />
+  <link rel="stylesheet" href="/assets/console.css" />
+</head>
+<body class="app-page console-page">
+  <a class="skip" href="#main">본문으로</a>
+  <!--LLMS_APP_HEADER-->
+
+  <main id="main" class="app-main console-main">
+    <div id="flash" class="app-banner ok hidden" role="status"></div>
+    <div id="err" class="app-banner err hidden" role="alert"></div>
+
+    <section id="login-view" class="app-page-header console-header">
+      <h1>LLM 연결</h1>
+      <p class="lead">GitHub로 로그인하면 브라우저에서 계정·라우트·API 키를 관리할 수 있습니다. CLI와 같은 호스팅 허브입니다.</p>
+      <div class="login-card">
+        <a class="btn btn-primary" id="btn-signin" href="/auth/github?next=/console"><svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.23c-3.34.73-4.03-1.42-4.03-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.74.08-.74 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.49.99.1-.78.42-1.31.76-1.61-2.67-.3-5.48-1.33-5.48-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23.96-.27 1.98-.41 3.01-.41 1.02 0 2.04.14 3.01.41 2.29-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.87.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.8 5.62-5.48 5.93.36.31.68.92.68 1.86v2.76c0 .27.18.7.83.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg><span>GitHub로 로그인</span></a>
+      </div>
+    </section>
+
+    <section id="app-view" class="hidden">
+      <header class="app-page-header console-hub-header">
+        <div class="console-hub-top">
+          <div class="console-hub-identity">
+            <h1>내 허브</h1>
+            <div class="console-plan-row" id="plan-meta" aria-live="polite">
+              <span class="plan-badge" id="plan-badge">—</span>
+              <span class="plan-status muted" id="plan-status"></span>
+            </div>
+          </div>
+          <div class="console-actions">
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-refresh-quota">한도 새로고침</button>
+            <a class="btn btn-primary btn-sm" id="btn-billing" href="/billing">플랜 · 요금</a>
+            <button type="button" class="btn btn-ghost btn-sm" id="btn-logout">로그아웃</button>
+          </div>
+        </div>
+        <div id="plan-callout" class="hub-callout hidden" role="status">
+          <div class="hub-callout-body">
+            <strong>플랜이 필요합니다</strong>
+            <p>계정을 연결해도 라우팅·한도는 활성 플랜이 있어야 동작합니다. 체험 또는 유료 플랜을 선택하세요.</p>
+          </div>
+          <a class="btn btn-primary btn-sm" href="/billing">요금 보기</a>
+        </div>
+      </header>
+
+      <nav class="console-tabs" id="tabs" aria-label="콘솔 섹션" role="tablist">
+        <button type="button" class="console-tab active" data-tab="overview" aria-selected="true">개요</button>
+        <button type="button" class="console-tab" data-tab="accounts" aria-selected="false">계정</button>
+        <button type="button" class="console-tab" data-tab="routes" aria-selected="false">라우트</button>
+        <button type="button" class="console-tab" data-tab="keys" aria-selected="false">키</button>
+        <button type="button" class="console-tab" data-tab="models" aria-selected="false">모델</button>
+      </nav>
+
+      <div id="tab-overview" class="console-tab-panel tab-panel">
+        <div class="overview-layout">
+          <div class="metric-grid" id="overview-cards"></div>
+          <div class="usage-panel" id="overview-usage" hidden></div>
+        </div>
+      </div>
+
+      <div id="tab-accounts" class="console-tab-panel tab-panel hidden">
+        <div class="panel-section">
+          <div class="panel-section-head">
+            <h2>연결된 계정</h2>
+            <button type="button" class="btn btn-primary btn-sm" id="btn-connect">계정 연결</button>
+          </div>
+          <div class="table-wrap">
+            <table class="console-table">
+              <thead><tr><th>계정</th><th>상태</th><th>한도</th><th>사용 라우트</th><th></th></tr></thead>
+              <tbody id="accounts-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-routes" class="console-tab-panel tab-panel hidden">
+        <div class="panel-section">
+          <div class="panel-section-head">
+            <h2>라우트</h2>
+            <button type="button" class="btn btn-primary btn-sm" id="btn-route-create">라우트 만들기</button>
+          </div>
+          <p class="panel-hint">라우팅 방식과 계정 풀은 만든 뒤에도 수정할 수 있습니다. IDE Base URL은 그대로입니다.</p>
+          <div class="table-wrap">
+            <table class="console-table">
+              <thead><tr><th>슬러그</th><th>방식</th><th>계정 풀</th><th>Base URL</th><th></th></tr></thead>
+              <tbody id="routes-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-keys" class="console-tab-panel tab-panel hidden">
+        <div class="panel-section">
+          <div class="panel-section-head">
+            <h2>API 키</h2>
+            <button type="button" class="btn btn-primary btn-sm" id="btn-key-create">라우트 키 만들기</button>
+          </div>
+          <div class="table-wrap">
+            <table class="console-table">
+              <thead><tr><th>이름</th><th>접두사</th><th>범위</th><th></th></tr></thead>
+              <tbody id="keys-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-models" class="console-tab-panel tab-panel hidden">
+        <div class="models-panel">
+          <div class="models-toolbar">
+            <div class="field">
+              <label for="models-route">라우트</label>
+              <select id="models-route"></select>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-load-models">모델 불러오기</button>
+          </div>
+          <pre class="models-out" id="models-out" aria-label="모델 JSON"></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="modal-connect" class="modal-back hidden" role="dialog" aria-modal="true" aria-labelledby="modal-connect-title">
+    <div class="modal">
+      <h2 id="modal-connect-title">계정 연결</h2>
+      <p class="modal-lead">업스트림 벤더를 추가합니다. OAuth는 새 탭에서, API 키 벤더는 폼으로 연결합니다.</p>
+      <div class="field">
+        <label for="c-vendor">벤더</label>
+        <select id="c-vendor">
+          <option value="claude">claude</option>
+          <option value="codex">codex</option>
+          <option value="deepseek">deepseek</option>
+          <option value="openai">openai</option>
+          <option value="kimi">kimi</option>
+          <option value="glm">glm</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="c-name">계정 이름</label>
+        <input id="c-name" placeholder="work" autocomplete="off" />
+      </div>
+      <div id="c-api-block" class="hidden">
+        <div class="field">
+          <label for="c-apikey">API 키</label>
+          <input id="c-apikey" type="password" autocomplete="off" />
+        </div>
+      </div>
+      <div id="c-claude-block" class="hidden">
+        <p class="modal-lead">Claude 인증 페이지를 연 뒤, 아래 코드를 붙여넣으세요.</p>
+        <p><a id="c-claude-link" class="btn btn-secondary btn-sm" href="#" target="_blank" rel="noopener">Claude 인증 열기</a></p>
+        <div class="field">
+          <label for="c-claude-code">인증 코드</label>
+          <input id="c-claude-code" autocomplete="off" />
+        </div>
+      </div>
+      <div id="c-codex-block" class="hidden">
+        <p class="modal-lead">ChatGPT 기기 페이지에서 승인하세요.</p>
+        <p><a id="c-codex-link" class="btn btn-secondary btn-sm" href="#" target="_blank" rel="noopener">Codex 기기 열기</a></p>
+        <p class="device-code" id="c-codex-code"></p>
+        <p class="muted" id="c-codex-status"></p>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-primary" id="c-submit">연결</button>
+        <button type="button" class="btn btn-secondary" id="c-cancel">취소</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-route" class="modal-back hidden" role="dialog" aria-modal="true" aria-labelledby="modal-route-title">
+    <div class="modal modal-wide">
+      <h2 id="modal-route-title">라우트 만들기</h2>
+      <p class="modal-lead" id="modal-route-lead">라우팅 방식을 고르고, 풀에 넣을 계정을 순서대로 고릅니다.</p>
+      <div class="field" id="r-slug-field">
+        <label for="r-slug">슬러그</label>
+        <input id="r-slug" placeholder="claude-failover" autocomplete="off" />
+      </div>
+      <fieldset class="field strategy-field">
+        <legend>라우팅 방식</legend>
+        <div class="strategy-grid" id="r-strategy" role="radiogroup" aria-label="라우팅 방식">
+          <label class="strategy-card">
+            <input type="radio" name="r-preset" value="failover" checked />
+            <span class="strategy-card-body">
+              <span class="preset">failover</span>
+              <span class="strat">막히면 다음으로</span>
+              <span class="desc">1번이 막히면 2번으로 넘깁니다.</span>
+            </span>
+          </label>
+          <label class="strategy-card">
+            <input type="radio" name="r-preset" value="balance" />
+            <span class="strategy-card-body">
+              <span class="preset">balance</span>
+              <span class="strat">골고루 돌려 씀</span>
+              <span class="desc">계정을 번갈아 씁니다.</span>
+            </span>
+          </label>
+          <label class="strategy-card">
+            <input type="radio" name="r-preset" value="prefer-primary" />
+            <span class="strategy-card-body">
+              <span class="preset">prefer-primary</span>
+              <span class="strat">주로 1번 계정</span>
+              <span class="desc">평소엔 1번, 가끔 2번.</span>
+            </span>
+          </label>
+          <label class="strategy-card">
+            <input type="radio" name="r-preset" value="quota-first" />
+            <span class="strategy-card-body">
+              <span class="preset">quota-first</span>
+              <span class="strat">남은 한도 많은 순</span>
+              <span class="desc">쿼터가 넉넉한 쪽부터.</span>
+            </span>
+          </label>
+          <label class="strategy-card">
+            <input type="radio" name="r-preset" value="parallel" />
+            <span class="strategy-card-body">
+              <span class="preset">parallel</span>
+              <span class="strat">API 키 전용 · Pro</span>
+              <span class="desc">동시 요청 후 가장 빠른 응답.</span>
+            </span>
+          </label>
+        </div>
+      </fieldset>
+      <div class="field">
+        <label>계정 풀 <span class="muted">(위에서부터 우선순위)</span></label>
+        <div id="r-accounts" class="pool-list"></div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-primary" id="r-submit">라우트 생성</button>
+        <button type="button" class="btn btn-secondary" id="r-cancel">취소</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-key" class="modal-back hidden" role="dialog" aria-modal="true" aria-labelledby="modal-key-title">
+    <div class="modal">
+      <h2 id="modal-key-title">라우트 키</h2>
+      <p class="modal-lead">클라이언트 Base URL용 라우트 범위 <code>sk-gt</code>를 발급합니다.</p>
+      <div class="field">
+        <label for="k-slug">라우트 슬러그</label>
+        <select id="k-slug"></select>
+      </div>
+      <div class="field">
+        <label for="k-name">키 이름</label>
+        <input id="k-name" placeholder="cursor" autocomplete="off" />
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-primary" id="k-submit">키 만들기</button>
+        <button type="button" class="btn btn-secondary" id="k-cancel">취소</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-key-show" class="modal-back hidden" role="dialog" aria-modal="true" aria-labelledby="modal-key-show-title">
+    <div class="modal">
+      <h2 id="modal-key-show-title">지금 키를 저장하세요</h2>
+      <p class="modal-lead">다시 표시되지 않습니다. 클라이언트 또는 <code>LLMS_API_KEY</code>에 붙여넣으세요.</p>
+      <pre class="key-reveal" id="key-once"></pre>
+      <div class="field">
+        <label>Base URL</label>
+        <pre class="key-reveal" id="key-url"></pre>
+      </div>
+      <button type="button" class="btn btn-primary" id="key-done">완료</button>
+    </div>
+  </div>
+
+  <!--LLMS_APP_FOOTER-->
+
+  <script src="/assets/theme.js" defer></script>
+  <script src="/assets/site-chrome.js" defer></script>
+  <script>
+  (function () {
+    const $ = (id) => document.getElementById(id);
+    let state = { accounts: [], routes: [], connect: { pendingId: '', pollTimer: null }, routeEdit: null };
+
+    const PRESET_LABEL = {
+      failover: '막히면 다음으로',
+      balance: '골고루',
+      'prefer-primary': '주로 1번',
+      'quota-first': '한도 우선',
+      parallel: '병렬 (Pro)',
+    };
+
+    async function api(path, opts = {}) {
+      const res = await fetch(path, {
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json', ...(opts.headers || {}) },
+        ...opts,
+      });
+      const data = await res.json().catch(() => ({}));
+      return { res, data };
+    }
+
+    function showErr(msg) {
+      $('err').textContent = msg;
+      $('err').classList.remove('hidden');
+      $('err').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    function clearErr() { $('err').classList.add('hidden'); }
+    function flashOk(msg) {
+      $('flash').textContent = msg;
+      $('flash').classList.remove('hidden');
+      setTimeout(() => $('flash').classList.add('hidden'), 4200);
+    }
+
+    function showTab(name) {
+      document.querySelectorAll('.console-tab').forEach((t) => {
+        t.classList.toggle('active', t.dataset.tab === name);
+        t.setAttribute('aria-selected', t.dataset.tab === name ? 'true' : 'false');
+      });
+      document.querySelectorAll('.tab-panel').forEach((p) => p.classList.add('hidden'));
+      const panel = $('tab-' + name);
+      panel.classList.remove('hidden');
+      panel.style.animation = 'none';
+      panel.offsetHeight;
+      panel.style.animation = '';
+    }
+
+    document.querySelectorAll('.console-tab').forEach((t) => {
+      t.setAttribute('role', 'tab');
+      t.addEventListener('click', () => showTab(t.dataset.tab));
+    });
+
+    function healthClass(h) {
+      if (h === 'ok') return 'health-ok';
+      if (h === 'cooldown') return 'health-warn';
+      return 'health-bad';
+    }
+
+    function emptyRow(cols, text) {
+      return '<tr><td colspan="' + cols + '"><div class="console-empty">' + text + '</div></td></tr>';
+    }
+
+    function fmtNum(n) {
+      if (n == null || n === '') return '—';
+      if (typeof n === 'string') {
+        const t = n.trim();
+        if (t === '' || t === '—') return '—';
+        // already formatted (contains grouping sep) — keep as-is if numeric-ish
+        if (/^-?\d{1,3}([:,.]\d{3})+(\.\d+)?$/.test(t)) return t;
+        if (Number.isNaN(Number(t))) return n;
+        n = t;
+      }
+      const num = Number(n);
+      if (!Number.isFinite(num)) return '—';
+      return num.toLocaleString('en-US');
+    }
+
+    function metricCard(label, used, limit, opts) {
+      const o = opts || {};
+      const hasLimit = limit != null && limit !== '' && limit !== '—';
+      const usedLabel = fmtNum(used);
+      const limitLabel = hasLimit ? fmtNum(limit) : '제한 없음';
+      const usedN = Number(used);
+      const limN = Number(limit);
+      const ratio = (hasLimit && Number.isFinite(limN) && limN > 0 && Number.isFinite(usedN))
+        ? Math.min(100, Math.round((usedN / limN) * 100))
+        : null;
+      return '<article class="metric-card' + (o.wide ? ' metric-card-wide' : '') + '">' +
+        '<div class="metric-label">' + label + '</div>' +
+        '<div class="metric-value">' + usedLabel + '</div>' +
+        (o.solo
+          ? '<div class="metric-sub">' + (o.sub || '') + '</div>'
+          : '<div class="metric-sub">' + (hasLimit ? '<span class="metric-used-of">한도</span> ' + limitLabel : limitLabel) + '</div>') +
+        (ratio != null
+          ? '<div class="metric-bar" aria-hidden="true"><i style="width:' + ratio + '%"></i></div>'
+          : '') +
+        '</article>';
+    }
+
+    function renderOverview(data) {
+      const b = data.billing || {};
+      const lim = b.limits || {};
+      const use = b.usage_month || {};
+      const plan = b.plan || 'none';
+      const entitled = !!b.entitled;
+
+      const badge = $('plan-badge');
+      badge.textContent = plan;
+      badge.className = 'plan-badge' + (entitled ? ' is-ok' : ' is-warn');
+      $('plan-status').textContent = entitled ? '이용 중' : '플랜 필요';
+      $('plan-status').className = 'plan-status' + (entitled ? ' is-ok' : ' is-warn');
+
+      const callout = $('plan-callout');
+      callout.classList.toggle('hidden', entitled);
+      const billingBtn = $('btn-billing');
+      billingBtn.className = entitled ? 'btn btn-secondary btn-sm' : 'btn btn-primary btn-sm';
+      billingBtn.textContent = entitled ? '플랜 · 요금' : '플랜 선택';
+
+      const tokensUsed = use.tokens_total || 0;
+      const tokensCap = use.soft_cap_tokens != null ? use.soft_cap_tokens : lim.soft_cap_tokens;
+      $('overview-cards').innerHTML = [
+        metricCard('계정', (data.accounts || []).length, lim.accounts),
+        metricCard('라우트', (data.routes || []).length, lim.routes),
+        metricCard('키', (data.keys || []).length, lim.keys),
+        metricCard(lim.rpm != null ? 'RPM / 키' : 'RPM / 키', lim.rpm != null ? lim.rpm : '—', null, {
+          solo: true,
+          sub: lim.rpm != null ? '키당 분당 요청' : '플랜 연결 후 표시',
+        }),
+      ].join('');
+
+      const usage = $('overview-usage');
+      const capNum = tokensCap != null && tokensCap !== '' ? Number(tokensCap) : NaN;
+      const hasCap = Number.isFinite(capNum) && capNum > 0;
+      const pct = hasCap ? Math.min(100, Math.round((Number(tokensUsed) / capNum) * 100)) : null;
+      usage.hidden = false;
+      usage.innerHTML =
+        '<div class="usage-panel-head">' +
+          '<div><div class="metric-label">토큰 (이번 달)</div>' +
+          '<div class="usage-figures"><span class="usage-used">' + fmtNum(tokensUsed) + '</span>' +
+          (hasCap
+            ? '<span class="usage-sep">/</span><span class="usage-cap">' + fmtNum(capNum) + '</span>'
+            : '<span class="usage-cap usage-cap-open"> · 제한 없음</span>') +
+          '</div></div>' +
+          (pct != null ? '<div class="usage-pct">' + pct + '%</div>' : '') +
+        '</div>' +
+        (hasCap
+          ? '<div class="usage-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + pct + '">' +
+            '<i style="width:' + pct + '%"></i></div>'
+          : '') +
+        '<p class="usage-hint">' + (hasCap
+          ? '월 소프트캡 기준 · 캘린더 월 기준으로 리셋됩니다.'
+          : '활성 플랜이 있으면 소프트캡과 사용률이 여기에 표시됩니다.') + '</p>';
+
+      state.accounts = data.accounts || [];
+      state.routes = data.routes || [];
+
+      $('accounts-body').innerHTML = state.accounts.length
+        ? state.accounts.map((a) => {
+          const used = state.routes.filter((r) => (r.account_ids || []).includes(a.id)).map((r) => r.slug);
+          const usedLabel = used.length ? used.join(', ') : '라우트 없음';
+          return '<tr><td><div class="cell-title">' + a.vendor + ':' + a.name + '</div><div class="cell-sub">' + a.auth_type + '</div></td>' +
+          '<td class="' + healthClass(a.health) + '">' + (a.glyph || '') + ' ' + a.health + '</td>' +
+          '<td>' + (a.quota_remaining_pct != null ? Number(a.quota_remaining_pct).toFixed(0) + '%' : '—') + '</td>' +
+          '<td><div class="cell-sub">' + usedLabel + '</div></td>' +
+          '<td><button type="button" class="btn btn-secondary btn-sm" data-del-acc="' + a.id + '">제거</button></td></tr>';
+        }).join('')
+        : emptyRow(5, '아직 계정이 없습니다 — 벤더를 연결하세요.');
+
+      const base = data.public_base_url || location.origin;
+      $('routes-body').innerHTML = state.routes.length
+        ? state.routes.map((r) => {
+          const preset = r.preset || r.strategy;
+          const pool = (r.account_refs && r.account_refs.length)
+            ? r.account_refs.map((ref) => '<span class="pool-chip">' + ref + '</span>').join('')
+            : '<span class="muted">비어 있음</span>';
+          return '<tr><td><div class="cell-title">' + r.slug + '</div></td>' +
+            '<td><div class="cell-title">' + (PRESET_LABEL[preset] || preset) + '</div><div class="cell-sub">' + preset + '</div></td>' +
+            '<td><div class="pool-chips">' + pool + '</div></td>' +
+            '<td class="cell-mono">' + base + r.openai_base + '</td>' +
+            '<td class="row-actions">' +
+            '<button type="button" class="btn btn-secondary btn-sm" data-edit-route="' + r.slug + '">수정</button> ' +
+            '<button type="button" class="btn btn-secondary btn-sm" data-del-route="' + r.slug + '">삭제</button>' +
+            '</td></tr>';
+        }).join('')
+        : emptyRow(5, '아직 라우트가 없습니다 — 방식으로 만드세요.');
+
+      $('keys-body').innerHTML = (data.keys || []).length
+        ? (data.keys || []).map((k) =>
+          '<tr><td class="cell-title">' + k.name + '</td>' +
+          '<td class="cell-mono">' + k.key_prefix + '…</td>' +
+          '<td class="cell-mono">' + (k.route_id || 'project') + '</td>' +
+          '<td>' + (k.revoked ? '<span class="muted">폐기됨</span>' : '<button type="button" class="btn btn-secondary btn-sm" data-revoke="' + k.id + '">폐기</button>') + '</td></tr>'
+        ).join('')
+        : emptyRow(4, '아직 키가 없습니다 — 라우트 키를 발급하세요.');
+
+      const routeOpts = state.routes.map((r) => '<option value="' + r.slug + '">' + r.slug + '</option>').join('');
+      $('models-route').innerHTML = routeOpts || '<option value="">—</option>';
+      $('k-slug').innerHTML = routeOpts || '<option value="">—</option>';
+    }
+
+    async function load() {
+      clearErr();
+      const { res, data } = await api('/console/api/overview');
+      if (res.status === 401) {
+        $('login-view').classList.remove('hidden');
+        $('app-view').classList.add('hidden');
+        return;
+      }
+      if (!res.ok) { showErr(data.error || '불러오기 실패'); return; }
+      $('login-view').classList.add('hidden');
+      $('app-view').classList.remove('hidden');
+      const me = await api('/console/api/me');
+      if (me.res.ok) {
+        $('nav-account').textContent = '@' + me.data.login;
+      }
+      renderOverview(data);
+    }
+
+    $('btn-logout').addEventListener('click', async () => {
+      await api('/console/api/logout', { method: 'POST', body: '{}' });
+      location.reload();
+    });
+
+    (function showAuthError() {
+      const q = new URLSearchParams(location.search);
+      const err = q.get('auth_error');
+      if (!err) return;
+      showErr(err + (q.get('auth_detail') ? ': ' + q.get('auth_detail') : ''));
+      history.replaceState({}, '', location.pathname);
+    })();
+
+    $('btn-refresh-quota').addEventListener('click', async () => {
+      const { res, data } = await api('/console/api/quota/refresh', { method: 'POST', body: '{}' });
+      if (!res.ok) { showErr(data.error || JSON.stringify(data)); return; }
+      flashOk('한도 갱신 (oauth ' + fmtNum(data.oauth_updated) + ', usage ' + fmtNum(data.usage_heuristic_updated) + ')');
+      load();
+    });
+
+    function openModal(id) {
+      $(id).classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(id) {
+      $(id).classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    $('btn-connect').addEventListener('click', () => {
+      state.connect = { pendingId: '', pollTimer: null };
+      $('c-vendor').dispatchEvent(new Event('change'));
+      openModal('modal-connect');
+    });
+    $('c-cancel').addEventListener('click', () => closeModal('modal-connect'));
+    document.querySelectorAll('.modal-back').forEach((el) => {
+      el.addEventListener('click', (e) => { if (e.target === el) closeModal(el.id); });
+    });
+
+    $('c-vendor').addEventListener('change', () => {
+      const v = $('c-vendor').value;
+      $('c-api-block').classList.add('hidden');
+      $('c-claude-block').classList.add('hidden');
+      $('c-codex-block').classList.add('hidden');
+      if (v === 'claude') $('c-claude-block').classList.remove('hidden');
+      else if (v === 'codex') $('c-codex-block').classList.remove('hidden');
+      else $('c-api-block').classList.remove('hidden');
+    });
+
+    $('c-submit').addEventListener('click', async () => {
+      const vendor = $('c-vendor').value;
+      const name = $('c-name').value.trim() || 'default';
+      $('c-submit').disabled = true;
+      try {
+        if (vendor === 'claude') {
+          if (!state.connect.pendingId) {
+            const { res, data } = await api('/console/api/connect/claude/start', { method: 'POST', body: '{}' });
+            if (!res.ok) throw new Error(data.error || 'Claude 시작 실패');
+            state.connect.pendingId = data.pending_id;
+            $('c-claude-link').href = data.auth_url;
+            flashOk('Claude에서 승인한 뒤 코드를 붙여넣고 다시 연결을 누르세요.');
+            $('c-submit').disabled = false;
+            return;
+          }
+          const { res, data } = await api('/console/api/connect/claude/complete', {
+            method: 'POST', body: JSON.stringify({ pending_id: state.connect.pendingId, code: $('c-claude-code').value, name }),
+          });
+          if (!res.ok) throw new Error(data.error || JSON.stringify(data));
+          closeModal('modal-connect');
+          flashOk('연결됨 claude:' + name);
+          load();
+        } else if (vendor === 'codex') {
+          if (!state.connect.pendingId) {
+            const { res, data } = await api('/console/api/connect/codex/start', { method: 'POST', body: '{}' });
+            if (!res.ok) throw new Error(data.error || 'Codex 시작 실패');
+            state.connect.pendingId = data.pending_id;
+            $('c-codex-link').href = data.verification_uri;
+            $('c-codex-code').textContent = data.user_code;
+            $('c-codex-status').textContent = '브라우저에서 승인하세요…';
+            const iv = Math.max(3, Number(data.interval) || 5) * 1000;
+            if (state.connect.pollTimer) clearInterval(state.connect.pollTimer);
+            state.connect.pollTimer = setInterval(async () => {
+              const { res, data } = await api('/console/api/connect/codex/poll', {
+                method: 'POST', body: JSON.stringify({ pending_id: state.connect.pendingId, name }),
+              });
+              if (res.status === 202) return;
+              clearInterval(state.connect.pollTimer);
+              if (!res.ok) { $('c-codex-status').textContent = data.error || 'failed'; return; }
+              closeModal('modal-connect');
+              flashOk('연결됨 codex:' + name);
+              load();
+            }, iv);
+            $('c-submit').disabled = false;
+            return;
+          }
+        } else {
+          const { res, data } = await api('/console/api/accounts', {
+            method: 'POST',
+            body: JSON.stringify({ vendor, name, auth_type: 'api_key', api_key: $('c-apikey').value }),
+          });
+          if (!res.ok) throw new Error((data.billing ? data.billing + ' ' : '') + (data.error || JSON.stringify(data)));
+          closeModal('modal-connect');
+          flashOk('연결됨 ' + vendor + ':' + name);
+          load();
+        }
+      } catch (e) { showErr(String(e)); }
+      $('c-submit').disabled = false;
+    });
+
+    function selectedPreset() {
+      const el = document.querySelector('input[name="r-preset"]:checked');
+      return el ? el.value : 'failover';
+    }
+
+    function setPreset(preset) {
+      const v = preset || 'failover';
+      const el = document.querySelector('input[name="r-preset"][value="' + v + '"]');
+      if (el) el.checked = true;
+      else {
+        const fb = document.querySelector('input[name="r-preset"][value="failover"]');
+        if (fb) fb.checked = true;
+      }
+    }
+
+    function renderPoolList(selectedIds) {
+      const selected = Array.isArray(selectedIds) ? selectedIds.slice() : [];
+      const selectedSet = new Set(selected);
+      if (!state.accounts.length) {
+        $('r-accounts').innerHTML = '<span class="muted">먼저 계정을 연결하세요.</span>';
+        return;
+      }
+      const ordered = [];
+      selected.forEach((id) => {
+        const a = state.accounts.find((x) => x.id === id);
+        if (a) ordered.push(a);
+      });
+      state.accounts.forEach((a) => {
+        if (!selectedSet.has(a.id)) ordered.push(a);
+      });
+      $('r-accounts').innerHTML = ordered.map((a, i) => {
+        const on = selectedSet.has(a.id);
+        return '<div class="pool-row' + (on ? ' is-on' : '') + '" data-id="' + a.id + '">' +
+          '<label class="pool-check"><input type="checkbox" value="' + a.id + '"' + (on ? ' checked' : '') + ' /> ' +
+          '<span class="pool-ref">' + a.vendor + ':' + a.name + '</span></label>' +
+          '<span class="pool-order muted">' + (on ? (i + 1) : '—') + '</span>' +
+          '<button type="button" class="btn btn-secondary btn-sm pool-up" data-pool-up="' + a.id + '" ' + (on ? '' : 'disabled') + ' aria-label="위로">↑</button>' +
+          '<button type="button" class="btn btn-secondary btn-sm pool-down" data-pool-down="' + a.id + '" ' + (on ? '' : 'disabled') + ' aria-label="아래로">↓</button>' +
+          '</div>';
+      }).join('');
+    }
+
+    function poolSelectedIds() {
+      return [...$('r-accounts').querySelectorAll('.pool-row')].filter((row) => {
+        const cb = row.querySelector('input[type="checkbox"]');
+        return cb && cb.checked;
+      }).map((row) => row.getAttribute('data-id'));
+    }
+
+    function openRouteModal(editSlug) {
+      state.routeEdit = editSlug || null;
+      if (state.routeEdit) {
+        const r = state.routes.find((x) => x.slug === state.routeEdit);
+        if (!r) { showErr('라우트를 찾을 수 없습니다'); return; }
+        $('modal-route-title').textContent = '라우트 수정';
+        $('modal-route-lead').textContent = '방식과 계정 풀을 바꿉니다. Base URL·슬러그는 그대로입니다.';
+        $('r-slug').value = r.slug;
+        $('r-slug').readOnly = true;
+        $('r-slug-field').classList.add('is-readonly');
+        $('r-submit').textContent = '저장';
+        setPreset(r.preset || 'failover');
+        renderPoolList(r.account_ids || []);
+      } else {
+        $('modal-route-title').textContent = '라우트 만들기';
+        $('modal-route-lead').textContent = '라우팅 방식을 고르고, 풀에 넣을 계정을 순서대로 고릅니다.';
+        $('r-slug').value = '';
+        $('r-slug').readOnly = false;
+        $('r-slug-field').classList.remove('is-readonly');
+        $('r-submit').textContent = '라우트 생성';
+        setPreset('failover');
+        renderPoolList([]);
+      }
+      openModal('modal-route');
+    }
+
+    $('btn-route-create').addEventListener('click', () => openRouteModal(null));
+    $('r-cancel').addEventListener('click', () => closeModal('modal-route'));
+    $('r-accounts').addEventListener('change', (ev) => {
+      if (ev.target && ev.target.matches('input[type="checkbox"]')) {
+        renderPoolList(poolSelectedIds());
+      }
+    });
+    $('r-accounts').addEventListener('click', (ev) => {
+      const up = ev.target.getAttribute && ev.target.getAttribute('data-pool-up');
+      const down = ev.target.getAttribute && ev.target.getAttribute('data-pool-down');
+      if (!up && !down) return;
+      ev.preventDefault();
+      const ids = poolSelectedIds();
+      const id = up || down;
+      const i = ids.indexOf(id);
+      if (i < 0) return;
+      const j = up ? i - 1 : i + 1;
+      if (j < 0 || j >= ids.length) return;
+      const tmp = ids[i]; ids[i] = ids[j]; ids[j] = tmp;
+      renderPoolList(ids);
+    });
+    $('r-submit').addEventListener('click', async () => {
+      const ids = poolSelectedIds();
+      const preset = selectedPreset();
+      if (state.routeEdit) {
+        const { res, data } = await api('/console/api/routes/' + encodeURIComponent(state.routeEdit), {
+          method: 'PATCH',
+          body: JSON.stringify({ preset: preset, account_ids: ids }),
+        });
+        if (!res.ok) { showErr(data.error || JSON.stringify(data)); return; }
+        closeModal('modal-route');
+        flashOk('라우트 ' + state.routeEdit + ' 저장됨');
+        load();
+        return;
+      }
+      const slug = $('r-slug').value.trim();
+      if (!slug) { showErr('슬러그를 입력하세요'); return; }
+      const { res, data } = await api('/console/api/routes', {
+        method: 'POST',
+        body: JSON.stringify({ slug: slug, preset: preset, account_ids: ids }),
+      });
+      if (!res.ok) { showErr(data.error || JSON.stringify(data)); return; }
+      closeModal('modal-route');
+      flashOk('라우트 ' + data.slug + ' 생성됨');
+      load();
+    });
+
+    $('btn-key-create').addEventListener('click', () => openModal('modal-key'));
+    $('k-cancel').addEventListener('click', () => closeModal('modal-key'));
+    $('k-submit').addEventListener('click', async () => {
+      const slug = $('k-slug').value;
+      if (!slug) { showErr('먼저 라우트를 만드세요'); return; }
+      const { res, data } = await api('/console/api/keys', {
+        method: 'POST',
+        body: JSON.stringify({ route_slug: slug, name: $('k-name').value.trim() || 'route:' + slug }),
+      });
+      if (!res.ok) { showErr(data.error || JSON.stringify(data)); return; }
+      closeModal('modal-key');
+      $('key-once').textContent = data.api_key;
+      $('key-url').textContent = location.origin + '/r/' + slug + '/v1';
+      openModal('modal-key-show');
+      load();
+    });
+    $('key-done').addEventListener('click', () => closeModal('modal-key-show'));
+
+    $('btn-load-models').addEventListener('click', async () => {
+      const slug = $('models-route').value;
+      if (!slug) return;
+      $('models-out').textContent = '불러오는 중…';
+      const { res, data } = await api('/console/api/routes/' + encodeURIComponent(slug) + '/models');
+      $('models-out').textContent = res.ok ? JSON.stringify(data, null, 2) : JSON.stringify(data, null, 2);
+    });
+
+    document.body.addEventListener('click', async (ev) => {
+      const t = ev.target;
+      if (!t || !t.getAttribute) return;
+      const delAcc = t.getAttribute('data-del-acc');
+      if (delAcc) {
+        if (!confirm('이 계정을 제거할까요?')) return;
+        const { res, data } = await api('/console/api/accounts/' + delAcc, { method: 'DELETE' });
+        if (!res.ok) showErr(data.error || '삭제 실패');
+        else load();
+      }
+      const editRoute = t.getAttribute('data-edit-route');
+      if (editRoute) {
+        openRouteModal(editRoute);
+        return;
+      }
+      const delRoute = t.getAttribute('data-del-route');
+      if (delRoute) {
+        if (!confirm('라우트 삭제: ' + delRoute + '?')) return;
+        const { res, data } = await api('/console/api/routes/' + encodeURIComponent(delRoute), { method: 'DELETE' });
+        if (!res.ok) showErr(data.error || '삭제 실패');
+        else load();
+      }
+      const revoke = t.getAttribute('data-revoke');
+      if (revoke) {
+        const { res, data } = await api('/console/api/keys/' + revoke + '/revoke', { method: 'POST', body: '{}' });
+        if (!res.ok) showErr(data.error || '폐기 실패');
+        else load();
+      }
+    });
+
+    load();
+  })();
+  </script>
+</body>
+</html>

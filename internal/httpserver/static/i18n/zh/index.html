@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>llms — Claude、Codex 订阅，一个 API 地址</title>
+  <meta name="description" content="将 Claude、Codex 订阅和 API 密钥合并为一个地址。Cursor、IDE、机器人只需一个 URL。" />
+  <meta property="og:url" content="https://llms.goodtek.xyz/zh" />
+  <link rel="canonical" href="https://llms.goodtek.xyz/zh" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23111111'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-size='28' font-family='system-ui' fill='%23ffffff'%3Ell%3C/text%3E%3C/svg%3E" />
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="/assets/theme-boot.js"></script>
+  <link rel="stylesheet" href="/assets/landing.css" />
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+  <!--LLMS_PUBLIC_HEADER-->
+
+  <section class="hero hero-simple" aria-label="llms">
+    <div class="hero-inner hero-inner-simple">
+      <div class="hero-copy">
+        <p class="brand-mark">llms</p>
+        <h1>多个账户，<br />一个 API 地址。</h1>
+        <p class="lede">将 Claude、Codex 订阅和 API 密钥连接到 llms。你的工具只需<strong>一个地址</strong>。对话、网页搜索、图片也使用同一 API。</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/zh/install">开始使用</a>
+          <a class="btn btn-secondary" href="#api">查看 API</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main id="main">
+    <section class="block" id="how" aria-labelledby="how-title">
+      <div class="wrap">
+        <p class="kicker">开始</p>
+        <h2 id="how-title">三步即可</h2>
+        <ol class="steps">
+          <li class="step"><div class="n">01</div><h3>连接账户</h3><p>添加 Claude、Codex 订阅或 API 密钥。</p></li>
+          <li class="step"><div class="n">02</div><h3>创建地址</h3><p>创建路由，获得 <code>/r/…/v1</code> 地址。</p></li>
+          <li class="step"><div class="n">03</div><h3>接入工具</h3><p>设置 Base URL 和 <code>sk-gt</code> 密钥。</p></li>
+        </ol>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/zh/install">安装指南</a>
+          <a class="btn btn-secondary" href="/console">打开控制台</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="api" aria-labelledby="api-title">
+      <div class="wrap">
+        <p class="kicker">API</p>
+        <h2 id="api-title">如何调用</h2>
+        <p class="section-lede">标准 OpenAI Chat Completions 格式。Cursor、代理、脚本通用。</p>
+        <div class="contract">
+          <code><strong>Base URL</strong> https://llms.goodtek.xyz/r/&lt;slug&gt;/v1</code>
+          <code><strong>调用</strong> POST …/chat/completions</code>
+          <code><strong>认证</strong> Authorization: Bearer sk-gt-…</code>
+        </div>
+        <div class="api-features">
+          <article class="api-feature"><h3>对话</h3><p>发送 <code>messages</code> 即可。</p></article>
+          <article class="api-feature"><h3>网页搜索</h3><p>在 <code>tools</code> 中添加 <code>web_search</code>。</p></article>
+          <article class="api-feature"><h3>图片</h3><p>在 <code>tools</code> 中添加 <code>generate_image</code>。</p></article>
+        </div>
+        <p class="footnote"><a href="/LLMS_API.md">API 文档</a></p>
+      </div>
+    </section>
+
+    <section class="block" id="self-host" aria-labelledby="selfhost-title">
+      <div class="wrap">
+        <p class="kicker">自托管</p>
+        <h2 id="selfhost-title">自己部署请用 openllms</h2>
+        <p class="section-lede">引擎开源。单容器、本地 SQLite、文件密钥即可启动。运维、TLS、团队由你负责。</p>
+        <div class="cmd">$ <em>docker compose -f deploy/oss/docker-compose.yml up --build</em></div>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://github.com/goodtekxyz/openllms" target="_blank" rel="noopener noreferrer">GitHub · openllms</a>
+          <a class="btn btn-secondary" href="/zh/install">云端安装指南</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="faq" aria-labelledby="faq-title">
+      <div class="wrap">
+        <p class="kicker">FAQ</p>
+        <h2 id="faq-title">常见问题</h2>
+        <div class="faq-list">
+          <details class="faq-item"><summary>llms 是什么？</summary><p>连接订阅或 API 密钥后，工具只需一个 URL。多个账户会自动分配。</p></details>
+          <details class="faq-item"><summary>支持哪些工具？</summary><p>任何支持 OpenAI 兼容 Base URL 的 IDE、CLI、机器人。</p></details>
+          <details class="faq-item"><summary>需要自建服务器吗？</summary><p>不是必须。可直接使用 <a href="https://llms.goodtek.xyz">llms.goodtek.xyz</a>。若要自建，请看 <a href="https://github.com/goodtekxyz/openllms" target="_blank" rel="noopener noreferrer">openllms</a>。</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!--LLMS_PUBLIC_FOOTER-->
+  <script src="/assets/site-chrome.js" defer></script>
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>

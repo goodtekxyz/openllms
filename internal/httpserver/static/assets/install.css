@@ -1,0 +1,174 @@
+@import url("tokens.css");
+@import url("chrome.css");
+
+:root { --content-max: 820px; }
+
+    .hero {
+      width: min(var(--content-max), var(--measure));
+      margin: 0 auto;
+      padding: 2.75rem 0 1.5rem;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: rise 0.7s var(--ease) forwards;
+    }
+    @keyframes rise { to { opacity: 1; transform: none; } }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(2.2rem, 6vw, 3.25rem);
+      letter-spacing: -0.045em;
+      line-height: 1.05;
+      margin: 0 0 0.85rem;
+    }
+    .hero p {
+      margin: 0;
+      max-width: 36rem;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .shell {
+      width: min(var(--content-max), var(--measure));
+      margin: 0 auto 1.75rem;
+      background: var(--footer-bg);
+      color: var(--cmd-fg);
+      border-radius: var(--radius);
+      padding: 1rem 1.1rem;
+      overflow-x: auto;
+      opacity: 0;
+      animation: rise 0.7s var(--ease) 0.12s forwards;
+    }
+    .shell code {
+      font-size: 0.9rem;
+      color: var(--cmd-accent);
+      white-space: pre;
+    }
+
+    .copy-block {
+      position: relative;
+    }
+    .copy-block > .shell {
+      width: 100%;
+      margin: 0;
+      padding-right: 2.25rem;
+    }
+    .copy-block:has(> .shell) {
+      width: min(var(--content-max), var(--measure));
+      margin: 0 auto 1.75rem;
+    }
+    .copy-block:has(> .shell) > .shell {
+      opacity: 1;
+      animation: none;
+    }
+    article .copy-block {
+      margin: 0.7rem 0 1rem;
+    }
+    article .copy-block > pre {
+      margin: 0;
+      padding-right: 2.25rem;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      padding: 0;
+      border: 0;
+      background: none;
+      color: inherit;
+      opacity: 0.5;
+      cursor: pointer;
+    }
+    .copy-btn:hover,
+    .copy-btn.is-copied {
+      opacity: 1;
+    }
+    .copy-btn svg {
+      width: 1rem;
+      height: 1rem;
+      display: block;
+    }
+
+    article {
+      width: min(var(--content-max), var(--measure));
+      margin: 0 auto;
+      padding-bottom: 4rem;
+    }
+    article section {
+      padding: 2rem 0;
+      border-top: 1px solid var(--line);
+    }
+    article h2 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 1.55rem;
+      letter-spacing: -0.03em;
+      margin: 0 0 0.55rem;
+    }
+    article h3 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 1.1rem;
+      margin: 1.25rem 0 0.4rem;
+      letter-spacing: -0.02em;
+    }
+    article p, article li { color: var(--muted); }
+    article p { margin: 0 0 0.8rem; }
+    article ul, article ol { margin: 0 0 1rem; padding-left: 1.15rem; }
+    article li { margin: 0.3rem 0; }
+    article strong { color: var(--ink); }
+
+    pre {
+      margin: 0.7rem 0 1rem;
+      padding: 1rem 1.05rem;
+      background: var(--footer-bg);
+      color: var(--cmd-fg);
+      border-radius: var(--radius);
+      overflow-x: auto;
+      font-size: 0.84rem;
+      line-height: 1.45;
+    }
+    pre .c { color: var(--muted-2); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.925rem;
+      margin: 0.7rem 0 1rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.55rem 0.35rem;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+    th {
+      font-family: var(--font-display);
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    .callout {
+      border: 1px solid var(--line);
+      background: var(--surface-3);
+      border-radius: var(--radius);
+      padding: 0.85rem 1rem;
+      margin: 1rem 0;
+      color: var(--muted);
+    }
+    .presets {
+      display: grid;
+      gap: 0.55rem;
+      margin: 0.75rem 0 1rem;
+    }
+    .preset {
+      display: grid;
+      gap: 0.15rem;
+      padding: 0.75rem 0.9rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface-3);
+    }
+    @media (min-width: 640px) {
+      .preset { grid-template-columns: 8.5rem 1fr; align-items: baseline; gap: 0.75rem; }
+    }
+    .preset code { color: var(--ink); font-weight: 500; font-size: 0.85rem; }
+    .preset span { color: var(--muted); font-size: 0.9rem; }

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>llms — 시작하기</title>
+  <meta name="description" content="llms CLI 설치, 로그인, 계정·라우트 등록, 도구 연결." />
+  <link rel="canonical" href="https://llms.goodtek.xyz/install" />
+  <link rel="alternate" hreflang="ko" href="https://llms.goodtek.xyz/install" />
+  <link rel="alternate" hreflang="en" href="https://llms.goodtek.xyz/en/install" />
+  <meta name="theme-color" content="#111111" />
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="/assets/theme-boot.js"></script>
+  <link rel="stylesheet" href="/assets/install.css" />
+</head>
+<body>
+  <!--LLMS_PUBLIC_HEADER-->
+
+  <header class="hero">
+    <h1>시작하기</h1>
+    <p>CLI로 계정을 등록하고 API 주소를 만든 뒤, 쓰는 도구에 Base URL과 <code>sk-gt</code> 키만 넣으면 됩니다.</p>
+  </header>
+
+  <div class="shell" aria-label="quick install">
+    <code>curl -fsSL https://llms.goodtek.xyz/install.sh | bash</code>
+  </div>
+
+  <article>
+    <section>
+      <h2>1. CLI 설치</h2>
+      <p>Linux / macOS (amd64, arm64)</p>
+      <pre>curl -fsSL https://llms.goodtek.xyz/install.sh | bash
+llms --help</pre>
+      <p>바이너리는 게이트웨이 <code>/dist</code>에서 받습니다 (GitHub 인증 불필요). 확인: <code>llms version</code></p>
+    </section>
+
+    <section>
+      <h2>2. 로그인</h2>
+      <pre>llms login</pre>
+      <p>GitHub로 로그인하면 <code>sk-gt</code> 키가 저장됩니다.</p>
+    </section>
+
+    <section>
+      <h2>3. 계정 · 라우트</h2>
+      <pre>llms add
+llms route create
+llms route key &lt;slug&gt;</pre>
+      <p>Claude·Codex 구독, OpenAI·DeepSeek 등 API 키를 등록할 수 있습니다. 라우트를 만들면 <code>/r/&lt;slug&gt;/v1</code> 주소가 생깁니다.</p>
+    </section>
+
+    <section>
+      <h2>4. 도구에 연결</h2>
+      <table>
+        <thead><tr><th>설정</th><th>값</th></tr></thead>
+        <tbody>
+          <tr><td>Base URL</td><td><code>https://llms.goodtek.xyz/r/&lt;slug&gt;/v1</code></td></tr>
+          <tr><td>API Key</td><td><code>sk-gt-…</code> (<code>llms route key</code>)</td></tr>
+        </tbody>
+      </table>
+      <pre>curl -sS https://llms.goodtek.xyz/r/&lt;slug&gt;/v1/chat/completions \
+  -H "Authorization: Bearer sk-gt-…" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"…","messages":[{"role":"user","content":"안녕"}]}'</pre>
+      <p>웹 검색은 <code>tools</code>에 <code>web_search</code>, 이미지는 <code>generate_image</code>를 추가하세요. <a href="/#api">API 안내</a> · <a href="/LLMS_API.md">API 문서</a></p>
+    </section>
+
+    <section>
+      <h2>5. 콘솔</h2>
+      <p>터미널 대신 브라우저에서 관리하려면 <a href="/console">콘솔</a>을 열세요. 계정·라우트·키를 웹에서 관리할 수 있습니다.</p>
+    </section>
+
+    <section>
+      <h2>6. 셀프호스트</h2>
+      <p>클라우드 대신 직접 돌리려면 MIT 엔진 <a href="https://github.com/goodtekxyz/openllms" target="_blank" rel="noopener noreferrer">openllms</a>를 쓰세요. SQLite·파일 시크릿, Compose 한 줄로 시작할 수 있습니다.</p>
+      <pre>git clone https://github.com/goodtekxyz/openllms
+cd openllms
+cp deploy/oss/.env.example deploy/oss/.env   # BOOTSTRAP_TOKEN 설정
+docker compose -f deploy/oss/docker-compose.yml up --build</pre>
+    </section>
+  </article>
+
+  <!--LLMS_PUBLIC_FOOTER-->
+  <script src="/assets/site-chrome.js" defer></script>
+  <script src="/assets/copy.js" defer></script>
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>

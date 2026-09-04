@@ -1,0 +1,90 @@
+    :root {
+      --ink: #111111;
+      --ink-2: #1a1a1a;
+      --muted: #6b7280;
+      --muted-2: #9ca3af;
+      --line: #e5e7eb;
+      --line-strong: #d1d5db;
+      --surface: #ffffff;
+      --surface-2: #f3f4f6;
+      --surface-3: #f9fafb;
+      --accent: #111111;
+      --on-accent: #ffffff;
+      --accent-hover: #242424;
+      --ok: #15803d;
+      --warn: #b45309;
+      --hero-glow: #f3f4f6;
+      --board-fg: #374151;
+      --row-dash: #eef0f3;
+      --bar-track: #e5e7eb;
+      --badge-bg: #ffffff;
+      --cmd-fg: #e5e7eb;
+      --cmd-accent: #a3e635;
+      --footer-bg: #111111;
+      --footer-fg: #a1a1aa;
+      --footer-fg-strong: #fafafa;
+      --footer-mute: #71717a;
+      --footer-line: #27272a;
+      --font-display: "Cal Sans", "Plus Jakarta Sans", sans-serif;
+      --font-body: "Plus Jakarta Sans", sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, monospace;
+      --radius: 8px;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --chrome-max: 1120px;
+      --content-max: 1120px;
+      --max: var(--content-max);
+      /* Side inset used by chrome + primary content columns */
+      --page-gutter: 1rem;
+      --measure: calc(100% - 2 * var(--page-gutter));
+      color-scheme: light;
+    }
+
+    html.dark {
+      --ink: #fafafa;
+      --ink-2: #e4e4e7;
+      --muted: #a1a1aa;
+      --muted-2: #71717a;
+      --line: #27272a;
+      --line-strong: #3f3f46;
+      --surface: #09090b;
+      --surface-2: #18181b;
+      --surface-3: #111113;
+      --accent: #fafafa;
+      --on-accent: #09090b;
+      --accent-hover: #e4e4e7;
+      --ok: #4ade80;
+      --warn: #fbbf24;
+      --hero-glow: #18181b;
+      --board-fg: #a1a1aa;
+      --row-dash: #27272a;
+      --bar-track: #27272a;
+      --badge-bg: #18181b;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      color: var(--ink);
+      font-family: var(--font-body);
+      background: var(--surface);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      font-size: 16px;
+    }
+    a { color: inherit; }
+    code { font-family: var(--font-mono); font-size: 0.9em; }
+
+    .skip {
+      position: absolute; left: -999px; top: 0;
+    }
+    .skip:focus {
+      left: 1rem; top: 1rem; z-index: 40;
+      background: var(--surface); padding: 0.5rem 0.75rem;
+      border: 1px solid var(--line);
+    }
+

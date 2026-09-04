@@ -1,0 +1,143 @@
+/* llms admin — extends app-shell.css */
+
+.admin-main h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  margin: 0 0 0.5rem;
+  color: var(--ink);
+}
+
+.admin-panel {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  padding: 1.25rem 1.35rem;
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--ink) 4%, transparent);
+}
+
+.admin-login-card {
+  max-width: 28rem;
+  margin-top: 1.25rem;
+}
+
+.admin-login-card .btn-primary {
+  width: 100%;
+}
+
+.admin-login-card .device-box {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+.admin-code {
+  font-family: var(--font-mono);
+  font-size: 1.6rem;
+  letter-spacing: 0.12em;
+  margin: 0.75rem 0;
+  color: var(--ink);
+}
+
+.admin-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  margin-bottom: 1.25rem;
+}
+
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.admin-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 1.25rem 0 1.75rem;
+}
+
+@media (min-width: 800px) {
+  .admin-cards { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+
+.admin-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  background: var(--surface-2);
+}
+
+.admin-card .k {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.admin-card .v {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  letter-spacing: -0.03em;
+  margin-top: 0.25rem;
+  color: var(--ink);
+}
+
+.admin-section {
+  margin: 2rem 0;
+}
+
+.admin-section h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.75rem;
+  color: var(--ink);
+}
+
+.admin-table-wrap {
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.admin-table th,
+.admin-table td {
+  text-align: left;
+  padding: 0.55rem 0.35rem;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  color: var(--ink);
+}
+
+.admin-table th {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.admin-table .mono {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.admin-ok { color: var(--ok); font-weight: 600; }
+.admin-warn { color: var(--warn); font-weight: 600; }
+
+.admin-err {
+  color: #b91c1c;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+}
+
+html.dark .admin-err { color: #fca5a5; }

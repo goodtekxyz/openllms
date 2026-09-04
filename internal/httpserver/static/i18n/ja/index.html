@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>llms — Claude・Codex サブスク、API URL ひとつ</title>
+  <meta name="description" content="Claude・Codex のサブスクと API キーをひとつの URL に。Cursor・IDE・ボットにアドレスひとつで接続。" />
+  <meta property="og:url" content="https://llms.goodtek.xyz/ja" />
+  <link rel="canonical" href="https://llms.goodtek.xyz/ja" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23111111'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-size='28' font-family='system-ui' fill='%23ffffff'%3Ell%3C/text%3E%3C/svg%3E" />
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="/assets/theme-boot.js"></script>
+  <link rel="stylesheet" href="/assets/landing.css" />
+</head>
+<body>
+  <a class="skip" href="#main">本文へ</a>
+  <!--LLMS_PUBLIC_HEADER-->
+
+  <section class="hero hero-simple" aria-label="llms">
+    <div class="hero-inner hero-inner-simple">
+      <div class="hero-copy">
+        <p class="brand-mark">llms</p>
+        <h1>複数アカウント、<br />API URL ひとつ。</h1>
+        <p class="lede">Claude・Codex のサブスクと API キーを llms に接続。Cursor・IDE・ボットには<strong>アドレスひとつ</strong>だけ。会話・Web 検索・画像も同じ API です。</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/ja/install">はじめる</a>
+          <a class="btn btn-secondary" href="#api">API を見る</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main id="main">
+    <section class="block" id="how" aria-labelledby="how-title">
+      <div class="wrap">
+        <p class="kicker">はじめ方</p>
+        <h2 id="how-title">3 ステップ</h2>
+        <ol class="steps">
+          <li class="step"><div class="n">01</div><h3>アカウント接続</h3><p>Claude・Codex サブスクまたは API キーを登録。</p></li>
+          <li class="step"><div class="n">02</div><h3>URL を作成</h3><p>ルートを作ると <code>/r/…/v1</code> が発行されます。</p></li>
+          <li class="step"><div class="n">03</div><h3>ツールに接続</h3><p>Base URL と <code>sk-gt</code> キーを設定。</p></li>
+        </ol>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/ja/install">インストール</a>
+          <a class="btn btn-secondary" href="/console">コンソール</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="api" aria-labelledby="api-title">
+      <div class="wrap">
+        <p class="kicker">API</p>
+        <h2 id="api-title">呼び出し方</h2>
+        <p class="section-lede">OpenAI Chat Completions 形式そのまま。Cursor・エージェント・スクリプト共通です。</p>
+        <div class="contract">
+          <code><strong>Base URL</strong> https://llms.goodtek.xyz/r/&lt;slug&gt;/v1</code>
+          <code><strong>呼び出し</strong> POST …/chat/completions</code>
+          <code><strong>認証</strong> Authorization: Bearer sk-gt-…</code>
+        </div>
+        <div class="api-features">
+          <article class="api-feature"><h3>会話</h3><p><code>messages</code> を送るだけ。</p></article>
+          <article class="api-feature"><h3>Web 検索</h3><p><code>tools</code> に <code>web_search</code> を追加。</p></article>
+          <article class="api-feature"><h3>画像</h3><p><code>tools</code> に <code>generate_image</code> を追加。</p></article>
+        </div>
+        <p class="footnote"><a href="/LLMS_API.md">API ドキュメント</a></p>
+      </div>
+    </section>
+
+    <section class="block" id="self-host" aria-labelledby="selfhost-title">
+      <div class="wrap">
+        <p class="kicker">セルフホスト</p>
+        <h2 id="selfhost-title">自分で動かすなら openllms</h2>
+        <p class="section-lede">エンジンはオープンソースです。SQLite とファイル秘密でコンテナひとつから起動できます。運用・TLS・チームはご自身で。</p>
+        <div class="cmd">$ <em>docker compose -f deploy/oss/docker-compose.yml up --build</em></div>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://github.com/goodtekxyz/openllms" target="_blank" rel="noopener noreferrer">GitHub · openllms</a>
+          <a class="btn btn-secondary" href="/ja/install">クラウド導入</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="faq" aria-labelledby="faq-title">
+      <div class="wrap">
+        <p class="kicker">FAQ</p>
+        <h2 id="faq-title">よくある質問</h2>
+        <div class="faq-list">
+          <details class="faq-item"><summary>llms とは？</summary><p>サブスクや API キーを接続すると、ツールには URL ひとつだけ設定すれば OK です。</p></details>
+          <details class="faq-item"><summary>どんなツールに使える？</summary><p>OpenAI 互換 Base URL を受け付ける IDE・CLI・ボットならどれでも。</p></details>
+          <details class="faq-item"><summary>自前ホストは必要？</summary><p>必須ではありません。<a href="https://llms.goodtek.xyz">llms.goodtek.xyz</a> をそのまま使えます。自分で運用するなら <a href="https://github.com/goodtekxyz/openllms" target="_blank" rel="noopener noreferrer">openllms</a> へ。</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!--LLMS_PUBLIC_FOOTER-->
+  <script src="/assets/site-chrome.js" defer></script>
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>

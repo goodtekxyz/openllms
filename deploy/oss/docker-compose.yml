@@ -1,0 +1,24 @@
+# Single-container OSS gateway for local use (SQLite + file secrets).
+# No .env file required — defaults below are for localhost only.
+services:
+  gateway:
+    build:
+      context: ../..
+      dockerfile: deploy/Dockerfile
+      args:
+        BUILD_TAGS: ""
+    ports:
+      # Localhost only — not published on all interfaces.
+      - "127.0.0.1:8080:8080"
+    environment:
+      HTTP_ADDR: "0.0.0.0:8080"
+      DATABASE_URL: "sqlite:/data/llms.db"
+      LLMS_SECRETS_DIR: "/data/secrets"
+      # Fixed local bootstrap token (compose defaults). Not for public exposure.
+      BOOTSTRAP_TOKEN: "local-dev-bootstrap"
+    volumes:
+      - oss-data:/data
+    restart: unless-stopped
+
+volumes:
+  oss-data:
