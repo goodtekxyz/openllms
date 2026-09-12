@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>llms — API ドキュメント</title>
+  <meta name="description" content="エージェントと OpenAI 互換クライアント向けの統合 API。" />
+  <link rel="canonical" href="https://llms.goodtek.xyz/ja/api" />
+  <script src="/assets/theme-boot.js"></script>
+  <link rel="stylesheet" href="/assets/install.css" />
+  <link rel="stylesheet" href="/assets/content.css" />
+</head>
+<body>
+  <!--LLMS_PUBLIC_HEADER-->
+
+  <div class="content-band content-band--prose">
+    <header class="hero">
+      <h1>API ドキュメント</h1>
+      <p>エージェントと OpenAI 互換クライアント向けの統合 API。</p>
+      <p>機械可読の原文: <a href="/LLMS_API.md"><code>/LLMS_API.md</code></a></p>
+    </header>
+
+    <article class="docs-body">
+      <section>
+        <h2>エンドポイント</h2>
+        <pre><code>POST https://llms.goodtek.xyz/v1/chat/completions
+Authorization: Bearer sk-gt-…
+Content-Type: application/json</code></pre>
+        <p>OpenAI 互換の Chat Completions。Claude・Codex など接続済みアカウントへ Base URL ひとつで呼び出せます。</p>
+      </section>
+      <section>
+        <h2>最小リクエスト</h2>
+        <pre><code>{
+  "model": "gpt-5.4-mini",
+  "messages": [
+    {"role": "system", "content": "You are helpful."},
+    {"role": "user", "content": "Hello"}
+  ],
+  "stream": true
+}</code></pre>
+      </section>
+      <section>
+        <h2>ツール</h2>
+        <p>検索・画像用の別 API はありません。OpenAI と同じく、同じ <code>chat/completions</code> リクエストの <code>tools</code> に function tool を入れます。対応していればゲートウェイがホスト済みツールへマップします。</p>
+        <table>
+          <thead><tr><th>クライアント関数</th><th>動作</th></tr></thead>
+          <tbody>
+            <tr><td><code>web_search</code></td><td>利用可能な場合はホスト済み Web 検索</td></tr>
+            <tr><td><code>generate_image</code></td><td>利用可能な場合はホスト済み画像生成</td></tr>
+            <tr><td>other functions</td><td>クライアント実行ツールとして通過</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h2>任意の <code>llms</code> ヒント</h2>
+        <pre><code>{
+  "llms": {
+    "web_search": {"mode": "live"},
+    "session_key": "thread-abc"
+  }
+}</code></pre>
+      </section>
+      <section>
+        <h2>レスポンス</h2>
+        <p>OpenAI chat completion 形式に加え、任意の <code>llms</code> 拡張（<code>account_id</code>、<code>provider</code>、<code>hosted_tools</code>）。</p>
+      </section>
+      <section>
+        <h2>ディスカバリ</h2>
+        <ul>
+          <li><code>GET /control/v1/meta</code></li>
+          <li><code>GET /v1/models</code></li>
+          <li><a href="{{INSTALL_HREF}}">はじめる</a></li>
+        </ul>
+      </section>
+    </article>
+  </div>
+
+  <!--LLMS_PUBLIC_FOOTER-->
+  <script src="/assets/site-chrome.js" defer></script>
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>

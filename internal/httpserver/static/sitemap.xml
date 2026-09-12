@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://llms.goodtek.xyz/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://llms.goodtek.xyz/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://llms.goodtek.xyz/en" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://llms.goodtek.xyz/ja" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://llms.goodtek.xyz/zh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://llms.goodtek.xyz/en" />
+  </url>
+  <url>
+    <loc>https://llms.goodtek.xyz/en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://llms.goodtek.xyz/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://llms.goodtek.xyz/en" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://llms.goodtek.xyz/ja" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://llms.goodtek.xyz/zh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://llms.goodtek.xyz/en" />
+  </url>
+  <url>
+    <loc>https://llms.goodtek.xyz/ja</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://llms.goodtek.xyz/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://llms.goodtek.xyz/en" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://llms.goodtek.xyz/ja" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://llms.goodtek.xyz/zh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://llms.goodtek.xyz/en" />
+  </url>
+  <url>
+    <loc>https://llms.goodtek.xyz/zh</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://llms.goodtek.xyz/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://llms.goodtek.xyz/en" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://llms.goodtek.xyz/ja" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://llms.goodtek.xyz/zh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://llms.goodtek.xyz/en" />
+  </url>
+  <url>
+    <loc>https://llms.goodtek.xyz/install</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://llms.goodtek.xyz/install" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://llms.goodtek.xyz/en/install" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://llms.goodtek.xyz/ja/install" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://llms.goodtek.xyz/zh/install" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://llms.goodtek.xyz/en/install" />
+  </url>
+  <url>
+    <loc>https://llms.goodtek.xyz/en/install</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://llms.goodtek.xyz/install" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://llms.goodtek.xyz/en/install" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://llms.goodtek.xyz/ja/install" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://llms.goodtek.xyz/zh/install" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://llms.goodtek.xyz/en/install" />
+  </url>
+  <url>
+    <loc>https://llms.goodtek.xyz/ja/install</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://llms.goodtek.xyz/install" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://llms.goodtek.xyz/en/install" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://llms.goodtek.xyz/ja/install" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://llms.goodtek.xyz/zh/install" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://llms.goodtek.xyz/en/install" />
+  </url>
+  <url>
+    <loc>https://llms.goodtek.xyz/zh/install</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://llms.goodtek.xyz/install" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://llms.goodtek.xyz/en/install" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://llms.goodtek.xyz/ja/install" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://llms.goodtek.xyz/zh/install" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://llms.goodtek.xyz/en/install" />
+  </url>
+  <url>
+    <loc>https://llms.goodtek.xyz/install.md</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://llms.goodtek.xyz/llms.txt</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.4</priority>
+  </url>
+</urlset>

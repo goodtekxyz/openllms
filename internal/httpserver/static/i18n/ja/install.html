@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>llms — はじめる</title>
+  <meta name="description" content="llms CLI のインストール、ログイン、アカウント・ルート登録、ツール接続。" />
+  <link rel="canonical" href="https://llms.goodtek.xyz/ja/install" />
+  <meta name="theme-color" content="#111111" />
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="/assets/theme-boot.js"></script>
+  <link rel="stylesheet" href="/assets/install.css" />
+</head>
+<body>
+  <!--LLMS_PUBLIC_HEADER-->
+
+  <div class="content-band content-band--prose">
+
+  <header class="hero">
+    <h1>はじめる</h1>
+    <p>一度インストールし、アカウントとルートを作ってから、ツールに Base URL と <code>sk-gt</code> を設定します。</p>
+  </header>
+
+  <div class="shell" aria-label="quick install">
+    <code>curl -fsSL https://llms.goodtek.xyz/install.sh | bash</code>
+  </div>
+
+  <article>
+    <section>
+      <h2>1. CLI インストール</h2>
+      <pre>curl -fsSL https://llms.goodtek.xyz/install.sh | bash
+llms --help</pre>
+    </section>
+    <section>
+      <h2>2. ログイン</h2>
+      <pre>llms login</pre>
+    </section>
+    <section>
+      <h2>3. アカウントとルート</h2>
+      <pre>llms add
+llms route create
+llms route key &lt;slug&gt;</pre>
+    </section>
+    <section>
+      <h2>4. ツールに接続</h2>
+      <table>
+        <thead><tr><th>設定</th><th>値</th></tr></thead>
+        <tbody>
+          <tr><td>Base URL</td><td><code>https://llms.goodtek.xyz/r/&lt;slug&gt;/v1</code></td></tr>
+          <tr><td>API Key</td><td><code>sk-gt-…</code></td></tr>
+        </tbody>
+      </table>
+      <p>OpenAI と同じく <code>chat/completions</code> ひとつです。検索・画像が必要なら同じリクエストの <code>tools</code> に <code>web_search</code> / <code>generate_image</code> を追加。<a href="/ja#api">API ガイド</a> · <a href="{{API_DOCS_HREF}}">API ドキュメント</a></p>
+    </section>
+    <section>
+      <h2>5. クラウド（いま無料）</h2>
+      <p>箱の運用が重いと感じたらホスト版クラウドへ — いま無料です。必要なら CLI で <code>llms signal</code> と教えてください。プランは <code>llms plan</code>。</p>
+      <pre>llms plan
+llms status</pre>
+    </section>
+    <section>
+      <h2>6. セルフホステッド</h2>
+      <p>自分の PC やサーバーで動かしたいときはオープンソースの <a href="{{OPENLLMS_HREF}}" target="_blank" rel="noopener noreferrer">openllms</a>。セルフホストなら<strong>使い放題・無料</strong>です。Compose ひとつで始められ、詳細は GitHub README にあります。</p>
+      <p class="star-nudge">役立ったら <a href="{{OPENLLMS_HREF}}" target="_blank" rel="noopener noreferrer">GitHub で ★ Star</a> をお願いします。</p>
+      <pre>git clone https://github.com/goodtekxyz/openllms
+cd openllms
+docker compose -f deploy/oss/docker-compose.yml up --build</pre>
+    </section>
+  </article>
+
+  </div>
+
+  <!--LLMS_PUBLIC_FOOTER-->
+  <script src="/assets/site-chrome.js" defer></script>
+  <script src="/assets/copy.js" defer></script>
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>

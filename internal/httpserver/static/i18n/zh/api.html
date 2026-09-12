@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>llms — API 文档</title>
+  <meta name="description" content="面向 Agent 与 OpenAI 兼容客户端的统一 API。" />
+  <link rel="canonical" href="https://llms.goodtek.xyz/zh/api" />
+  <script src="/assets/theme-boot.js"></script>
+  <link rel="stylesheet" href="/assets/install.css" />
+  <link rel="stylesheet" href="/assets/content.css" />
+</head>
+<body>
+  <!--LLMS_PUBLIC_HEADER-->
+
+  <div class="content-band content-band--prose">
+    <header class="hero">
+      <h1>API 文档</h1>
+      <p>面向 Agent 与 OpenAI 兼容客户端的统一 API。</p>
+      <p>机器可读原文： <a href="/LLMS_API.md"><code>/LLMS_API.md</code></a></p>
+    </header>
+
+    <article class="docs-body">
+      <section>
+        <h2>端点</h2>
+        <pre><code>POST https://llms.goodtek.xyz/v1/chat/completions
+Authorization: Bearer sk-gt-…
+Content-Type: application/json</code></pre>
+        <p>OpenAI 兼容的 Chat Completions。Claude、Codex 等已连接账户共用一个 Base URL。</p>
+      </section>
+      <section>
+        <h2>最小请求</h2>
+        <pre><code>{
+  "model": "gpt-5.4-mini",
+  "messages": [
+    {"role": "system", "content": "You are helpful."},
+    {"role": "user", "content": "Hello"}
+  ],
+  "stream": true
+}</code></pre>
+      </section>
+      <section>
+        <h2>工具</h2>
+        <p>没有单独的搜索/图像 API。和 OpenAI 一样，在同一 <code>chat/completions</code> 请求的 <code>tools</code> 里放 function tool。上游支持时，网关会映射为托管工具。</p>
+        <table>
+          <thead><tr><th>客户端函数</th><th>行为</th></tr></thead>
+          <tbody>
+            <tr><td><code>web_search</code></td><td>可用时映射为托管网页搜索</td></tr>
+            <tr><td><code>generate_image</code></td><td>可用时映射为托管图像生成</td></tr>
+            <tr><td>other functions</td><td>作为客户端执行工具透传</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h2>可选 <code>llms</code> 提示</h2>
+        <pre><code>{
+  "llms": {
+    "web_search": {"mode": "live"},
+    "session_key": "thread-abc"
+  }
+}</code></pre>
+      </section>
+      <section>
+        <h2>响应</h2>
+        <p>OpenAI chat completion 形状，外加可选 <code>llms</code> 扩展（<code>account_id</code>、<code>provider</code>、<code>hosted_tools</code>）。</p>
+      </section>
+      <section>
+        <h2>发现</h2>
+        <ul>
+          <li><code>GET /control/v1/meta</code></li>
+          <li><code>GET /v1/models</code></li>
+          <li><a href="{{INSTALL_HREF}}">开始使用</a></li>
+        </ul>
+      </section>
+    </article>
+  </div>
+
+  <!--LLMS_PUBLIC_FOOTER-->
+  <script src="/assets/site-chrome.js" defer></script>
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>

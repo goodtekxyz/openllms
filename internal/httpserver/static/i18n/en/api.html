@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>llms — API docs</title>
+  <meta name="description" content="Canonical client entrance for agents and OpenAI-compatible clients." />
+  <link rel="canonical" href="https://llms.goodtek.xyz/en/api" />
+  <script src="/assets/theme-boot.js"></script>
+  <link rel="stylesheet" href="/assets/install.css" />
+  <link rel="stylesheet" href="/assets/content.css" />
+</head>
+<body>
+  <!--LLMS_PUBLIC_HEADER-->
+
+  <div class="content-band content-band--prose">
+    <header class="hero">
+      <h1>API docs</h1>
+      <p>Canonical client entrance for agents and OpenAI-compatible clients.</p>
+      <p>Machine-readable original: <a href="/LLMS_API.md"><code>/LLMS_API.md</code></a></p>
+    </header>
+
+    <article class="docs-body">
+      <section>
+        <h2>Endpoint</h2>
+        <pre><code>POST https://llms.goodtek.xyz/v1/chat/completions
+Authorization: Bearer sk-gt-…
+Content-Type: application/json</code></pre>
+        <p>OpenAI-compatible Chat Completions. One Base URL for Claude, Codex, and other connected accounts.</p>
+      </section>
+      <section>
+        <h2>Minimal request</h2>
+        <pre><code>{
+  "model": "gpt-5.4-mini",
+  "messages": [
+    {"role": "system", "content": "You are helpful."},
+    {"role": "user", "content": "Hello"}
+  ],
+  "stream": true
+}</code></pre>
+      </section>
+      <section>
+        <h2>Tools</h2>
+        <p>No separate search/image API. Same as OpenAI: put function tools on the same <code>chat/completions</code> request. When upstream supports it, the gateway maps them to hosted tools.</p>
+        <table>
+          <thead><tr><th>Client function</th><th>Behavior</th></tr></thead>
+          <tbody>
+            <tr><td><code>web_search</code></td><td>Hosted web search when available</td></tr>
+            <tr><td><code>generate_image</code></td><td>Hosted image generation when available</td></tr>
+            <tr><td>other functions</td><td>Passed through as client-executed tools</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h2>Optional <code>llms</code> hints</h2>
+        <pre><code>{
+  "llms": {
+    "web_search": {"mode": "live"},
+    "session_key": "thread-abc"
+  }
+}</code></pre>
+      </section>
+      <section>
+        <h2>Response</h2>
+        <p>OpenAI chat completion shape, plus optional <code>llms</code> extensions (<code>account_id</code>, <code>provider</code>, <code>hosted_tools</code>).</p>
+      </section>
+      <section>
+        <h2>Discovery</h2>
+        <ul>
+          <li><code>GET /control/v1/meta</code></li>
+          <li><code>GET /v1/models</code></li>
+          <li><a href="{{INSTALL_HREF}}">Get started</a></li>
+        </ul>
+      </section>
+    </article>
+  </div>
+
+  <!--LLMS_PUBLIC_FOOTER-->
+  <script src="/assets/site-chrome.js" defer></script>
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>

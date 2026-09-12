@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>llms — Turn subscriptions into an API, many accounts as one</title>
+  <meta name="description" content="Use ChatGPT Pro, Claude, or several GPT logins you already pay for as one OpenAI-compatible API. We manage remaining quota." />
+  <meta property="og:title" content="llms — Subscriptions → API, many accounts as one" />
+  <meta property="og:description" content="Turn subs into an API. Bundle GPT and Claude accounts; we balance remaining quota." />
+  <meta property="og:url" content="https://llms.goodtek.xyz/en" />
+  <meta name="theme-color" content="#111111" />
+  <link rel="canonical" href="https://llms.goodtek.xyz/en" />
+  <link rel="alternate" hreflang="ko" href="https://llms.goodtek.xyz/" />
+  <link rel="alternate" hreflang="en" href="https://llms.goodtek.xyz/en" />
+  <link rel="alternate" hreflang="ja" href="https://llms.goodtek.xyz/ja" />
+  <link rel="alternate" hreflang="zh" href="https://llms.goodtek.xyz/zh" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23111111'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-size='28' font-family='system-ui' fill='%23ffffff'%3Ell%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="/assets/theme-boot.js"></script>
+  <link rel="stylesheet" href="/assets/landing.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <!--LLMS_PUBLIC_HEADER-->
+
+  <section class="hero hero-simple" aria-label="llms">
+    <div class="hero-inner hero-inner-simple">
+      <div class="hero-copy">
+        <p class="brand-mark">llms</p>
+        <p class="trust-line">by <a href="https://goodtek.xyz/" target="_blank" rel="noopener noreferrer">goodtek</a></p>
+        <h1>Turn the subs you pay for<br />into an API.</h1>
+        <p class="lede">ChatGPT Pro, Claude, or several GPT logins—<strong>use what you already pay for</strong> as an OpenAI-compatible API. Bundle them into <strong>one address</strong> for Cursor, IDEs, and bots. We route calls and manage <strong>remaining quota</strong> for you.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/en/install">Get started</a>
+          <a class="btn btn-secondary" href="#routing">Routing policies</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main id="main">
+    <section class="block" id="how" aria-labelledby="how-title">
+      <div class="wrap">
+        <p class="kicker">Get started</p>
+        <h2 id="how-title">Three steps</h2>
+        <ol class="steps">
+          <li class="step">
+            <div class="n">01</div>
+            <h3>Connect subscriptions</h3>
+            <p>Add ChatGPT Pro, Claude, extra GPT logins, or API keys with the CLI.</p>
+          </li>
+          <li class="step">
+            <div class="n">02</div>
+            <h3>Create your URL</h3>
+            <p>Create a route and get a <code>/r/…/v1</code> address.</p>
+          </li>
+          <li class="step">
+            <div class="n">03</div>
+            <h3>Plug in your tool</h3>
+            <p>Set Base URL and your <code>sk-gt</code> key. Done.</p>
+          </li>
+        </ol>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/en/install">Install guide</a>
+          <a class="btn btn-secondary" href="{{INSTALL_HREF}}">Cloud</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="routing" aria-labelledby="routing-title">
+      <div class="wrap">
+        <p class="kicker">Routing</p>
+        <h2 id="routing-title">How we split across your seats</h2>
+        <p class="section-lede">llms orchestrates <strong>the ChatGPT and Claude seats you already own</strong>. Each route URL picks a policy; failover runs before the first token hits your client.</p>
+        <ul class="policy-list">
+          <li><code>failover</code> — primary, then backup</li>
+          <li><code>balance</code> — round-robin across healthy accounts</li>
+          <li><code>prefer-primary</code> — soft 80/20 preference for your main seat</li>
+          <li><code>fill-first</code> — burn one seat, then the next</li>
+          <li><code>quota-first</code> — prefer more remaining (earliest reset on ties)</li>
+          <li><code>reset-soon</code> — burn the seat whose 7d window resets soonest</li>
+          <li><code>steward</code> — score remaining × reset urgency (prefer OAuth)</li>
+        </ul>
+        <p class="footnote">Choose with <code>llms route</code>; watch with <code>llms status</code>.</p>
+      </div>
+    </section>
+
+    <section class="block" id="api" aria-labelledby="api-title">
+      <div class="wrap">
+        <p class="kicker">API</p>
+        <h2 id="api-title">How to call</h2>
+        <p class="section-lede">Same as OpenAI Chat Completions — one endpoint. Same shape for Cursor, agents, and scripts.</p>
+        <div class="contract">
+          <code><strong>Base URL</strong> https://llms.goodtek.xyz/r/&lt;slug&gt;/v1</code>
+          <code><strong>Call</strong> POST …/chat/completions</code>
+          <code><strong>Auth</strong> Authorization: Bearer sk-gt-…</code>
+        </div>
+        <p class="api-note">Same as OpenAI: <code>POST …/chat/completions</code> with <code>messages</code>. Need search or images? Add <code>web_search</code> / <code>generate_image</code> in <code>tools</code> on <strong>that same request</strong> — no separate APIs.</p>
+        <div class="cmd">$ <em>curl -sS "https://llms.goodtek.xyz/r/MY_ROUTE/v1/chat/completions" \</em><br />
+  <em>-H "Authorization: Bearer sk-gt-…" \</em><br />
+  <em>-H "Content-Type: application/json" \</em><br />
+  <em>-d \'{"model":"…","messages":[{"role":"user","content":"Hi"}]}\'</em></div>
+        <p class="footnote">See <a href="{{API_DOCS_HREF}}">API docs</a> for details.</p>
+      </div>
+    </section>
+
+<section class="block" id="honesty" aria-labelledby="honesty-title">
+      <div class="wrap">
+        <p class="kicker">Honesty</p>
+        <h2 id="honesty-title">Your accounts · official OAuth · limits still apply</h2>
+        <p class="section-lede">We connect <strong>accounts you own</strong> via official OAuth. We don’t share or resell credentials. We don’t cloak as the official CLI. Provider limits and ToS still apply.</p>
+      </div>
+    </section>
+
+
+    <section class="block" id="self-host" aria-labelledby="selfhost-title">
+      <div class="wrap">
+        <p class="kicker">Self-Hosted</p>
+        <h2 id="selfhost-title">Run it yourself with openllms</h2>
+        <p class="section-lede">Prefer your own machine? Open-source <strong>openllms</strong> is <strong>free with no usage cap</strong> when you self-host. One Docker compose to start; you handle domain, TLS, and ops. Connect accounts and check status with the CLI.</p>
+        <div class="cmd">$ <em>docker compose -f deploy/oss/docker-compose.yml up --build</em></div>
+        <p class="star-nudge">If it helps, please <a href="{{OPENLLMS_HREF}}" target="_blank" rel="noopener noreferrer">★ Star on GitHub</a> — that’s the best thank-you.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="{{OPENLLMS_HREF}}" target="_blank" rel="noopener noreferrer">★ Star · openllms</a>
+          <a class="btn btn-secondary" href="/en/install">Cloud install guide</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="faq" aria-labelledby="faq-title">
+      <div class="wrap">
+        <p class="kicker">FAQ</p>
+        <h2 id="faq-title">Questions</h2>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>What is llms?</summary>
+            <p>It turns subscriptions you already pay for into an API. One ChatGPT Pro, one Claude, or several GPT accounts—bundle them into one URL; we manage remaining quota when you call.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Where do I manage accounts?</summary>
+            <p>The CLI. Use <code>llms login</code>, <code>llms add</code>, <code>llms status</code>, and <code>llms plan</code>.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Cloud vs self-host?</summary>
+            <p>If running a box feels heavy, use <a href="https://llms.goodtek.xyz">cloud</a> — free for now. Prefer your own server? <a href="{{OPENLLMS_HREF}}" target="_blank" rel="noopener noreferrer">openllms</a>. If cloud matters to how you work, tell us with <code>llms signal</code>.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Do I need to self-host?</summary>
+            <p>No. Use <a href="https://llms.goodtek.xyz">llms.goodtek.xyz</a>. Prefer your own box? Use <a href="{{OPENLLMS_HREF}}" target="_blank" rel="noopener noreferrer">openllms</a>.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!--LLMS_PUBLIC_FOOTER-->
+  <script src="/assets/site-chrome.js" defer></script>
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>llms — 开始使用</title>
+  <meta name="description" content="安装 llms CLI、登录、添加账户与路由、连接工具。" />
+  <link rel="canonical" href="https://llms.goodtek.xyz/zh/install" />
+  <meta name="theme-color" content="#111111" />
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="/assets/theme-boot.js"></script>
+  <link rel="stylesheet" href="/assets/install.css" />
+</head>
+<body>
+  <!--LLMS_PUBLIC_HEADER-->
+
+  <div class="content-band content-band--prose">
+
+  <header class="hero">
+    <h1>开始使用</h1>
+    <p>安装一次，添加账户并创建路由，然后在工具中设置 Base URL 与 <code>sk-gt</code>。</p>
+  </header>
+
+  <div class="shell" aria-label="quick install">
+    <code>curl -fsSL https://llms.goodtek.xyz/install.sh | bash</code>
+  </div>
+
+  <article>
+    <section>
+      <h2>1. 安装 CLI</h2>
+      <pre>curl -fsSL https://llms.goodtek.xyz/install.sh | bash
+llms --help</pre>
+    </section>
+    <section>
+      <h2>2. 登录</h2>
+      <pre>llms login</pre>
+    </section>
+    <section>
+      <h2>3. 账户与路由</h2>
+      <pre>llms add
+llms route create
+llms route key &lt;slug&gt;</pre>
+    </section>
+    <section>
+      <h2>4. 接入工具</h2>
+      <table>
+        <thead><tr><th>设置</th><th>值</th></tr></thead>
+        <tbody>
+          <tr><td>Base URL</td><td><code>https://llms.goodtek.xyz/r/&lt;slug&gt;/v1</code></td></tr>
+          <tr><td>API Key</td><td><code>sk-gt-…</code></td></tr>
+        </tbody>
+      </table>
+      <p>和 OpenAI 一样，只有 <code>chat/completions</code> 一个入口。需要搜索或图片时，在同一请求的 <code>tools</code> 里加 <code>web_search</code> / <code>generate_image</code>。<a href="/zh#api">API 指南</a> · <a href="{{API_DOCS_HREF}}">API 文档</a></p>
+    </section>
+    <section>
+      <h2>5. 云端（目前免费）</h2>
+      <p>自托管运维嫌重就用托管云 — 目前免费。需要该路径请用 <code>llms signal</code> 告诉我们。也可 <code>llms plan</code>。</p>
+      <pre>llms plan
+llms status</pre>
+    </section>
+    <section>
+      <h2>6. 自托管</h2>
+      <p>想在自己的电脑或服务器上跑？开源 <a href="{{OPENLLMS_HREF}}" target="_blank" rel="noopener noreferrer">openllms</a> 自托管时<strong>不限用量、免费</strong>。一份 Compose 即可开始，详情见 GitHub README。</p>
+      <p class="star-nudge">如果有帮助，请到 <a href="{{OPENLLMS_HREF}}" target="_blank" rel="noopener noreferrer">GitHub 点个 ★ Star</a>。</p>
+      <pre>git clone https://github.com/goodtekxyz/openllms
+cd openllms
+docker compose -f deploy/oss/docker-compose.yml up --build</pre>
+    </section>
+  </article>
+
+  </div>
+
+  <!--LLMS_PUBLIC_FOOTER-->
+  <script src="/assets/site-chrome.js" defer></script>
+  <script src="/assets/copy.js" defer></script>
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>

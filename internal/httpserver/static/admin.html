@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#111111" />
+  <title>llms — 관리자</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="/assets/theme-boot.js"></script>
+  <link rel="stylesheet" href="/assets/landing.css" />
+  <link rel="stylesheet" href="/assets/app-shell.css" />
+  <link rel="stylesheet" href="/assets/admin.css" />
+</head>
+<body class="app-page admin-page">
+  <a class="skip" href="#main">본문으로</a>
+  <!--LLMS_ADMIN_HEADER-->
+
+  <main id="main" class="app-main admin-main">
+    <section id="login" class="hidden">
+      <h1>관리자 로그인</h1>
+      <p class="muted">GitHub로 로그인합니다. <code>ADMIN_GITHUB_LOGINS</code> allowlist에 있는 계정만 접근할 수 있습니다.</p>
+      <div class="admin-panel admin-login-card">
+        <a class="btn btn-primary" id="btn-start" href="/auth/github?next=/admin"><svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.23c-3.34.73-4.03-1.42-4.03-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.74.08-.74 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.49.99.1-.78.42-1.31.76-1.61-2.67-.3-5.48-1.33-5.48-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23.96-.27 1.98-.41 3.01-.41 1.02 0 2.04.14 3.01.41 2.29-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.87.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.8 5.62-5.48 5.93.36.31.68.92.68 1.86v2.76c0 .27.18.7.83.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg><span>GitHub로 로그인</span></a>
+        <p class="admin-err hidden" id="login-err"></p>
+      </div>
+    </section>
+
+    <section id="dash" class="hidden">
+      <div class="admin-head">
+        <div>
+          <h1>클라우드 운영 현황</h1>
+          <p class="muted" id="who">—</p>
+        </div>
+        <div class="admin-actions">
+          <button class="btn btn-secondary btn-sm" id="btn-notify-test" type="button">메일 테스트</button>
+          <button class="btn btn-secondary btn-sm" id="btn-refresh" type="button">새로고침</button>
+          <button class="btn btn-secondary btn-sm" id="btn-logout" type="button">로그아웃</button>
+        </div>
+      </div>
+
+      <div id="list-view">
+      <label class="admin-filter">
+        <span class="muted">필터</span>
+        <input type="search" id="filter" placeholder="login / slug / vendor:name …" autocomplete="off" />
+      </label>
+
+      <div class="admin-cards" id="cards"></div>
+
+      <div class="admin-section">
+        <h2>사용자 <span class="admin-count" id="users-count"></span></h2>
+        <div class="admin-panel admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Login</th><th>Plan</th><th>Accounts</th><th>Routes</th><th>Keys</th><th>Usage (month)</th><th>Last login</th><th>Created</th>
+              </tr>
+            </thead>
+            <tbody id="users-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="admin-section">
+        <h2>라우팅 <span class="admin-count" id="routes-count"></span></h2>
+        <div class="admin-panel admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>User</th><th>Slug</th><th>Strategy</th><th>Model</th><th>Pool</th><th>Pool health</th>
+              </tr>
+            </thead>
+            <tbody id="routes-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="admin-section">
+        <h2>연결된 계정 <span class="admin-count" id="accounts-count"></span></h2>
+        <div class="admin-panel admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>User</th><th>Ref</th><th>Auth</th><th>Health</th><th>Quota %</th><th>Updated</th>
+              </tr>
+            </thead>
+            <tbody id="accounts-body"></tbody>
+          </table>
+        </div>
+      </div>
+      </div><!-- /list-view -->
+
+      <div id="detail-view" class="hidden">
+        <div class="admin-head">
+          <div>
+            <button class="btn btn-secondary btn-sm" id="btn-back" type="button">← 목록</button>
+            <h1 id="detail-title" style="margin-top:0.75rem">사용자 상세</h1>
+            <p class="muted" id="detail-meta">—</p>
+          </div>
+        </div>
+        <div class="admin-cards" id="detail-cards"></div>
+        <div class="admin-section">
+          <h2>라우팅 <span class="admin-count" id="detail-routes-count"></span></h2>
+          <div class="admin-panel admin-table-wrap">
+            <table class="admin-table">
+              <thead><tr><th>Slug</th><th>Strategy</th><th>Model</th><th>Pool</th><th>Pool health</th></tr></thead>
+              <tbody id="detail-routes-body"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="admin-section">
+          <h2>연결된 계정 <span class="admin-count" id="detail-accounts-count"></span></h2>
+          <div class="admin-panel admin-table-wrap">
+            <table class="admin-table">
+              <thead><tr><th>Ref</th><th>Auth</th><th>Health</th><th>Quota %</th><th>Updated</th></tr></thead>
+              <tbody id="detail-accounts-body"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="admin-section">
+          <h2>API 키 <span class="admin-count" id="detail-keys-count"></span></h2>
+          <div class="admin-panel admin-table-wrap">
+            <table class="admin-table">
+              <thead><tr><th>Name</th><th>Prefix</th><th>Status</th><th>Created</th></tr></thead>
+              <tbody id="detail-keys-body"></tbody>
+            </table>
+          </div>
+        </div>
+        <p class="admin-err hidden" id="detail-err"></p>
+      </div>
+
+      <p class="admin-err hidden" id="dash-err"></p>
+    </section>
+
+    <section id="disabled" class="hidden">
+      <h1>Admin 비활성화</h1>
+      <p class="muted"><code>ADMIN_GITHUB_LOGINS</code>와 <code>ADMIN_SESSION_SECRET</code>을 gateway에 설정한 뒤 재배포하세요.</p>
+    </section>
+  </main>
+
+  <!--LLMS_APP_FOOTER-->
+
+  <script src="/assets/theme.js" defer></script>
+  <script src="/assets/site-chrome.js" defer></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const navAccount = document.getElementById('nav-account');
+    let overviewCache = null;
+    let selectedUserId = null;
+
+    async function api(path, opts = {}) {
+      const res = await fetch(path, {
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json', ...(opts.headers || {}) },
+        ...opts,
+      });
+      const data = await res.json().catch(() => ({}));
+      return { res, data };
+    }
+
+    function show(id) {
+      ['login', 'dash', 'disabled'].forEach((k) => $(k).classList.add('hidden'));
+      $(id).classList.remove('hidden');
+    }
+
+    function showList() {
+      selectedUserId = null;
+      $('detail-view').classList.add('hidden');
+      $('list-view').classList.remove('hidden');
+    }
+
+    function showDetail() {
+      $('list-view').classList.add('hidden');
+      $('detail-view').classList.remove('hidden');
+    }
+
+    function fmt(ts) {
+      if (!ts) return '—';
+      try { return new Date(ts).toLocaleString(); } catch { return ts; }
+    }
+
+    function fmtNum(n) {
+      if (n == null || n === '') return '—';
+      const num = Number(n);
+      if (!Number.isFinite(num)) return '—';
+      return num.toLocaleString('en-US');
+    }
+
+    function esc(s) {
+      return String(s == null ? '' : s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function filterQ() {
+      return ($('filter').value || '').trim().toLowerCase();
+    }
+
+    function matchFilter(parts) {
+      const q = filterQ();
+      if (!q) return true;
+      return parts.join(' ').toLowerCase().includes(q);
+    }
+
+    async function loadMe() {
+      const { res, data } = await api('/admin/api/me');
+      if (res.status === 503) { show('disabled'); return null; }
+      if (!res.ok) { show('login'); if (navAccount) navAccount.textContent = ''; return null; }
+      $('who').textContent = '@' + data.login + (data.mailer ? ' · 메일 알림 ON → ' + data.notify_email_to : ' · 메일 알림 OFF (가입 로그만)');
+      if (navAccount) navAccount.textContent = '@' + data.login;
+      show('dash');
+      return data;
+    }
+
+    function renderOverview(data) {
+      const s = data.summary || {};
+      $('cards').innerHTML = [
+        ['사용자', s.users],
+        ['계정', s.accounts],
+        ['라우트', s.routes],
+        ['활성 키', s.active_keys],
+        ['월 사용량', s.usage_month],
+        ['비정상 계정', s.unhealthy_accounts],
+      ].map(([k, v]) => '<div class="admin-card"><div class="k">' + k + '</div><div class="v">' + fmtNum(v ?? 0) + '</div></div>').join('');
+
+      const users = (data.users || []).filter((u) =>
+        matchFilter([u.login, u.plan, u.billing_status, u.github_id])
+      );
+      $('users-count').textContent = '(' + users.length + ')';
+      $('users-body').innerHTML = users.map((u) =>
+        '<tr class="admin-row-link" data-user-id="' + esc(u.id) + '" tabindex="0" role="link">' +
+        '<td><strong>' + esc(u.login) + '</strong></td>' +
+        '<td class="mono">' + esc(u.plan || 'none') + (u.billing_status && u.billing_status !== 'none' ? ' · ' + esc(u.billing_status) : '') + '</td>' +
+        '<td>' + fmtNum(u.account_count) + '</td>' +
+        '<td>' + fmtNum(u.route_count) + '</td>' +
+        '<td>' + fmtNum(u.active_keys) + '</td>' +
+        '<td>' + fmtNum(u.usage_month) + '</td>' +
+        '<td>' + fmt(u.last_login_at) + '</td>' +
+        '<td>' + fmt(u.created_at) + '</td>' +
+        '</tr>'
+      ).join('') || '<tr><td colspan="8" class="muted">사용자 없음</td></tr>';
+
+      const routes = (data.routes || []).filter((rt) =>
+        matchFilter([rt.login, rt.slug, rt.strategy, rt.default_model, (rt.pool || []).join(' ')])
+      );
+      $('routes-count').textContent = '(' + routes.length + ')';
+      $('routes-body').innerHTML = routes.map((rt) => {
+        const pool = (rt.pool || []).map(esc).join(', ') || '—';
+        const health = rt.pool_health || [];
+        const healthHtml = health.length
+          ? health.map((h) => '<span class="' + (h === 'ok' ? 'admin-ok' : 'admin-warn') + '">' + esc(h) + '</span>').join(' · ')
+          : '—';
+        return '<tr>' +
+          '<td>' + esc(rt.login) + '</td>' +
+          '<td class="mono">' + esc(rt.slug) + '</td>' +
+          '<td class="mono">' + esc(rt.strategy) + '</td>' +
+          '<td class="mono">' + esc(rt.default_model || '—') + '</td>' +
+          '<td class="mono">' + pool + '</td>' +
+          '<td>' + healthHtml + '</td>' +
+          '</tr>';
+      }).join('') || '<tr><td colspan="6" class="muted">라우트 없음</td></tr>';
+
+      const accounts = (data.accounts || []).filter((a) =>
+        matchFilter([a.login, a.ref, a.auth_type, a.health, a.vendor, a.name])
+      );
+      $('accounts-count').textContent = '(' + accounts.length + ')';
+      $('accounts-body').innerHTML = accounts.map((a) =>
+        '<tr>' +
+        '<td>' + esc(a.login) + '</td>' +
+        '<td class="mono">' + esc(a.ref) + '</td>' +
+        '<td>' + esc(a.auth_type) + '</td>' +
+        '<td class="' + (a.health === 'ok' ? 'admin-ok' : 'admin-warn') + '">' + esc(a.health) + '</td>' +
+        '<td>' + (a.quota_remaining_pct != null ? Number(a.quota_remaining_pct).toFixed(0) + '%' : '—') + '</td>' +
+        '<td>' + fmt(a.quota_updated_at) + '</td>' +
+        '</tr>'
+      ).join('') || '<tr><td colspan="6" class="muted">연결된 계정 없음</td></tr>';
+    }
+
+    function renderUserDetail(data) {
+      const u = data.user || {};
+      $('detail-title').textContent = '@' + (u.login || 'user');
+      $('detail-meta').textContent =
+        'plan ' + (u.plan || 'none') +
+        (u.billing_status && u.billing_status !== 'none' ? ' · ' + u.billing_status : '') +
+        ' · project ' + (u.project_id || '—') +
+        (u.github_id ? ' · github ' + u.github_id : '');
+      $('detail-cards').innerHTML = [
+        ['Accounts', u.account_count],
+        ['Routes', u.route_count],
+        ['Active keys', u.active_keys],
+        ['Usage (month)', u.usage_month],
+        ['Last login', null],
+        ['Created', null],
+      ].map(([k, v], i) => {
+        let val = fmtNum(v ?? 0);
+        if (k === 'Last login') val = fmt(u.last_login_at);
+        if (k === 'Created') val = fmt(u.created_at);
+        return '<div class="admin-card"><div class="k">' + k + '</div><div class="v" style="font-size:1rem">' + val + '</div></div>';
+      }).join('');
+
+      const routes = data.routes || [];
+      $('detail-routes-count').textContent = '(' + routes.length + ')';
+      $('detail-routes-body').innerHTML = routes.map((rt) => {
+        const pool = (rt.pool || []).map(esc).join(', ') || '—';
+        const health = rt.pool_health || [];
+        const healthHtml = health.length
+          ? health.map((h) => '<span class="' + (h === 'ok' ? 'admin-ok' : 'admin-warn') + '">' + esc(h) + '</span>').join(' · ')
+          : '—';
+        return '<tr><td class="mono">' + esc(rt.slug) + '</td><td class="mono">' + esc(rt.strategy) +
+          '</td><td class="mono">' + esc(rt.default_model || '—') + '</td><td class="mono">' + pool +
+          '</td><td>' + healthHtml + '</td></tr>';
+      }).join('') || '<tr><td colspan="5" class="muted">라우트 없음</td></tr>';
+
+      const accounts = data.accounts || [];
+      $('detail-accounts-count').textContent = '(' + accounts.length + ')';
+      $('detail-accounts-body').innerHTML = accounts.map((a) =>
+        '<tr><td class="mono">' + esc(a.ref) + '</td><td>' + esc(a.auth_type) +
+        '</td><td class="' + (a.health === 'ok' ? 'admin-ok' : 'admin-warn') + '">' + esc(a.health) +
+        '</td><td>' + (a.quota_remaining_pct != null ? Number(a.quota_remaining_pct).toFixed(0) + '%' : '—') +
+        '</td><td>' + fmt(a.quota_updated_at) + '</td></tr>'
+      ).join('') || '<tr><td colspan="5" class="muted">연결된 계정 없음</td></tr>';
+
+      const keys = data.keys || [];
+      $('detail-keys-count').textContent = '(' + keys.length + ')';
+      $('detail-keys-body').innerHTML = keys.map((k) =>
+        '<tr><td>' + esc(k.name) + '</td><td class="mono">' + esc(k.key_prefix) +
+        '</td><td class="' + (k.revoked ? 'admin-warn' : 'admin-ok') + '">' + (k.revoked ? 'revoked' : 'active') +
+        '</td><td>' + fmt(k.created_at) + '</td></tr>'
+      ).join('') || '<tr><td colspan="4" class="muted">키 없음</td></tr>';
+    }
+
+    async function openUser(id) {
+      selectedUserId = id;
+      showDetail();
+      $('detail-err').classList.add('hidden');
+      const { res, data } = await api('/admin/api/users/' + encodeURIComponent(id));
+      if (!res.ok) {
+        $('detail-err').textContent = data.error || ('HTTP ' + res.status);
+        $('detail-err').classList.remove('hidden');
+        if (res.status === 401) show('login');
+        return;
+      }
+      renderUserDetail(data);
+    }
+
+    async function loadOverview() {
+      const { res, data } = await api('/admin/api/overview');
+      if (!res.ok) {
+        $('dash-err').textContent = data.error || ('HTTP ' + res.status);
+        $('dash-err').classList.remove('hidden');
+        if (res.status === 401) show('login');
+        return;
+      }
+      $('dash-err').classList.add('hidden');
+      overviewCache = data;
+      renderOverview(data);
+      if (selectedUserId) await openUser(selectedUserId);
+      else showList();
+    }
+
+    $('btn-refresh').addEventListener('click', loadOverview);
+    $('btn-back').addEventListener('click', () => { showList(); });
+    $('btn-notify-test').addEventListener('click', async () => {
+      const { res, data } = await api('/admin/api/notify-test', { method: 'POST', body: '{}' });
+      const msg = (data.status || res.status) + (data.to ? ' → ' + data.to : '') + (data.detail ? ' · ' + data.detail : '');
+      if (res.ok) {
+        alert('메일 테스트 성공: ' + msg);
+      } else {
+        alert('메일 테스트 실패: ' + msg);
+      }
+    });
+    $('filter').addEventListener('input', () => {
+      if (overviewCache) renderOverview(overviewCache);
+    });
+    $('users-body').addEventListener('click', (e) => {
+      const tr = e.target.closest('tr[data-user-id]');
+      if (tr) openUser(tr.getAttribute('data-user-id'));
+    });
+    $('users-body').addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      const tr = e.target.closest('tr[data-user-id]');
+      if (!tr) return;
+      e.preventDefault();
+      openUser(tr.getAttribute('data-user-id'));
+    });
+    $('btn-logout').addEventListener('click', async () => {
+      await api('/admin/api/logout', { method: 'POST', body: '{}' });
+      if (navAccount) navAccount.textContent = '';
+      overviewCache = null;
+      selectedUserId = null;
+      show('login');
+    });
+
+    (function showAuthError() {
+      const q = new URLSearchParams(location.search);
+      const err = q.get('auth_error');
+      if (!err) return;
+      $('login-err').textContent = err + (q.get('auth_detail') ? ': ' + q.get('auth_detail') : '');
+      $('login-err').classList.remove('hidden');
+      history.replaceState({}, '', location.pathname);
+    })();
+
+    (async () => {
+      const me = await loadMe();
+      if (me) await loadOverview();
+    })();
+  </script>
+</body>
+</html>

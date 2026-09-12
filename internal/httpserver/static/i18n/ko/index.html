@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>llms — 이미 내고있는 구독비용으로 API</title>
+  <meta name="description" content="ChatGPT Pro·Claude처럼 이미 내고있는 구독비용으로 API를 만드세요. 계정이 여러 개여도 주소 하나, 잔여량은 알아서." />
+  <meta property="og:title" content="llms — 이미 내고있는 구독비용으로 API" />
+  <meta property="og:description" content="이미 내고있는 구독비용으로 API. GPT·Claude 계정을 묶어 하나처럼. 잔여량은 자동 관리." />
+  <meta property="og:url" content="https://llms.goodtek.xyz/" />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#111111" />
+  <link rel="canonical" href="https://llms.goodtek.xyz/" />
+  <link rel="alternate" hreflang="ko" href="https://llms.goodtek.xyz/" />
+  <link rel="alternate" hreflang="en" href="https://llms.goodtek.xyz/en" />
+  <link rel="alternate" hreflang="ja" href="https://llms.goodtek.xyz/ja" />
+  <link rel="alternate" hreflang="zh" href="https://llms.goodtek.xyz/zh" />
+  <link rel="alternate" hreflang="x-default" href="https://llms.goodtek.xyz/en" />
+  <meta name="robots" content="index,follow" />
+  <meta property="og:site_name" content="llms by goodtek" />
+  <meta property="og:image" content="https://llms.goodtek.xyz/assets/og.png" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23111111'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-size='28' font-family='system-ui' fill='%23ffffff'%3Ell%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="/assets/theme-boot.js"></script>
+  <link rel="stylesheet" href="/assets/landing.css" />
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"llms","applicationCategory":"DeveloperApplication","url":"https://llms.goodtek.xyz/","description":"이미 내고있는 ChatGPT·Claude 구독비용으로 API를 만들고, 여러 계정의 잔여량을 알아서 관리합니다.","provider":{"@type":"Organization","name":"goodtek","url":"https://goodtek.xyz"}}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">본문으로</a>
+  <!--LLMS_PUBLIC_HEADER-->
+
+  <section class="hero hero-simple" aria-label="llms">
+    <div class="hero-inner hero-inner-simple">
+      <div class="hero-copy">
+        <p class="brand-mark">llms</p>
+        <p class="trust-line"><a href="https://goodtek.xyz/" target="_blank" rel="noopener noreferrer">goodtek</a>이 만듭니다.</p>
+        <h1>이미 내고있는 구독비용으로<br />API를 만드세요.</h1>
+        <p class="lede">ChatGPT Pro 하나, Claude 하나, 혹은 GPT 계정 여러 개—<strong>이미 내고있는 구독비용</strong>으로 llms에 묶으면 Cursor·IDE·봇에는 <strong>주소 하나</strong>만 넣으면 돼요. 호출은 OpenAI 호환 <code>chat/completions</code>이고, <strong>남은 사용량은 알아서 나눠</strong> 씁니다.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/ko/install">시작하기</a>
+          <a class="btn btn-secondary" href="#routing">라우팅 정책</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main id="main">
+    <section class="block" id="how" aria-labelledby="how-title">
+      <div class="wrap">
+        <p class="kicker">시작하기</p>
+        <h2 id="how-title">세 단계면 충분해요</h2>
+        <ol class="steps">
+          <li class="step">
+            <div class="n">01</div>
+            <h3>구독·계정 연결</h3>
+            <p>ChatGPT Pro·Claude 구독이나 GPT 계정 여러 개, API 키까지 터미널에서 등록해요.</p>
+          </li>
+          <li class="step">
+            <div class="n">02</div>
+            <h3>API 주소 만들기</h3>
+            <p>라우트만 만들면 <code>/r/…/v1</code> 주소가 생겨요.</p>
+          </li>
+          <li class="step">
+            <div class="n">03</div>
+            <h3>도구에 붙이기</h3>
+            <p>Base URL과 <code>sk-gt</code> 키만 넣으면 끝이에요.</p>
+          </li>
+        </ol>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/ko/install">처음부터 따라하기</a>
+          <a class="btn btn-secondary" href="{{INSTALL_HREF}}">클라우드</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="routing" aria-labelledby="routing-title">
+      <div class="wrap">
+        <p class="kicker">라우팅</p>
+        <h2 id="routing-title">내 계정으로 어떻게 나눌지</h2>
+        <p class="section-lede"><strong>이미 가진 ChatGPT·Claude 좌석</strong>을 라우트 URL마다 정책으로 나눕니다. 첫 토큰이 클라이언트에 닿기 전에 페일오버합니다.</p>
+        <ul class="policy-list">
+          <li><code>failover</code> — 주 계정 다음 백업 순으로 시도</li>
+          <li><code>balance</code> — 건강한 계정에 라운드로빈</li>
+          <li><code>prefer-primary</code> — 주 좌석을 대략 80/20으로 우선</li>
+          <li><code>fill-first</code> — 한 좌석을 먼저 쓰고, 막히면 다음</li>
+          <li><code>quota-first</code> — 남은 한도가 더 많은 좌석을 우선 (동률이면 리셋이 빠른 쪽)</li>
+          <li><code>reset-soon</code> — 7d 창 기준 리셋이 가까운 좌석부터</li>
+          <li><code>steward</code> — 잔여×리셋 긴급도 점수 (OAuth 우선)</li>
+        </ul>
+        <p class="footnote">정책은 <code>llms route</code>로 고르고, 상태는 <code>llms status</code>에서 보면 됩니다.</p>
+      </div>
+    </section>
+
+    <section class="block" id="api" aria-labelledby="api-title">
+      <div class="wrap">
+        <p class="kicker">API</p>
+        <h2 id="api-title">이렇게 호출하면 돼요</h2>
+        <p class="section-lede">OpenAI Chat Completions와 동일해요. 엔드포인트는 <code>chat/completions</code> 하나이고, 주소와 키만 맞추면 Cursor·에이전트·스크립트 모두 같은 방식으로 붙어요.</p>
+        <div class="contract">
+          <code><strong>Base URL</strong> https://llms.goodtek.xyz/r/&lt;slug&gt;/v1</code>
+          <code><strong>호출</strong> POST …/chat/completions</code>
+          <code><strong>인증</strong> Authorization: Bearer sk-gt-…</code>
+        </div>
+        <p class="api-note">OpenAI와 같아요. <code>POST …/chat/completions</code>에 <code>messages</code>를 보내면 됩니다. 웹 검색·이미지가 필요하면 <strong>같은 요청</strong>의 <code>tools</code>에 <code>web_search</code> / <code>generate_image</code>를 넣으면 되고, 별도 API는 없습니다.</p>
+        <div class="cmd">$ <em>curl -sS "https://llms.goodtek.xyz/r/MY_ROUTE/v1/chat/completions" \</em><br />
+  <em>-H "Authorization: Bearer sk-gt-…" \</em><br />
+  <em>-H "Content-Type: application/json" \</em><br />
+  <em>-d '{"model":"…","messages":[{"role":"user","content":"안녕"}]}'</em></div>
+        <p class="footnote">더 자세한 내용은 <a href="{{API_DOCS_HREF}}">API 문서</a>를 봐 주세요.</p>
+      </div>
+    </section>
+
+<section class="block" id="honesty" aria-labelledby="honesty-title">
+      <div class="wrap">
+        <p class="kicker">정직하게</p>
+        <h2 id="honesty-title">내 계정 · 공식 OAuth · 한도는 그대로</h2>
+        <p class="section-lede">공식 OAuth로 <strong>당신이 소유한</strong> 계정만 연결합니다. 자격증명을 공유·재판매하지 않습니다. 공식 CLI로 “위장”하지 않으며, 프로바이더 한도와 ToS는 그대로 적용됩니다.</p>
+      </div>
+    </section>
+
+
+    <section class="block" id="self-host" aria-labelledby="selfhost-title">
+      <div class="wrap">
+        <p class="kicker">셀프 호스티드</p>
+        <h2 id="selfhost-title">내 서버에서 돌리고 싶다면</h2>
+        <p class="section-lede">우리 클라우드 말고, 내 PC나 서버에서 직접 돌릴 수도 있어요. 오픈소스 <strong>openllms</strong>는 셀프호스트면 <strong>무제한·무료</strong>예요. Docker로 한 번에 올릴 수 있고, 도메인·보안·팀 운영은 직접 하시면 됩니다. 계정 연결과 상태 확인은 터미널(CLI)로 하면 돼요.</p>
+        <div class="cmd">$ <em>docker compose -f deploy/oss/docker-compose.yml up --build</em></div>
+        <p class="star-nudge">도움이 됐다면 GitHub에서 <a href="{{OPENLLMS_HREF}}" target="_blank" rel="noopener noreferrer">★ Star</a> 한 번만 눌러 주세요. 그게 제일 큰 응원이에요.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="{{OPENLLMS_HREF}}" target="_blank" rel="noopener noreferrer">★ Star · openllms</a>
+          <a class="btn btn-secondary" href="/ko/install">클라우드로 쉽게 시작</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="faq" aria-labelledby="faq-title">
+      <div class="wrap">
+        <p class="kicker">FAQ</p>
+        <h2 id="faq-title">자주 묻는 질문</h2>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>llms가 뭔가요?</summary>
+            <p>이미 내고있는 ChatGPT·Claude 구독비용으로 API를 쓰게 해 주는 중간 다리예요. 계정이 하나든 여러 개든(예: GPT 2개 + Claude 1개) 묶어 두면 호출은 주소 하나, 잔여량은 알아서 관리합니다.</p>
+          </details>
+          <details class="faq-item">
+            <summary>계정은 어디서 관리하나요?</summary>
+            <p>터미널(CLI)이에요. <code>llms login</code> · <code>llms add</code> · <code>llms status</code> · <code>llms plan</code>으로 연결·상태·플랜을 보면 됩니다.</p>
+          </details>
+          <details class="faq-item">
+            <summary>클라우드랑 셀프호스트 차이는?</summary>
+            <p>직접 돌리기 부담되면 <a href="https://llms.goodtek.xyz">클라우드</a>를 쓰면 되고, 지금은 무료로 열어 두었어요. 내 서버면 <a href="{{OPENLLMS_HREF}}" target="_blank" rel="noopener noreferrer">openllms</a>. 클라우드가 필요하다고 느끼면 터미널에서 <code>llms signal</code>로 알려 주세요.</p>
+          </details>
+          <details class="faq-item">
+            <summary>서버를 직접 띄워야 하나요?</summary>
+            <p>아니요. <a href="https://llms.goodtek.xyz">llms.goodtek.xyz</a>를 그대로 쓰시면 됩니다. 직접 돌리고 싶을 때만 <a href="{{OPENLLMS_HREF}}" target="_blank" rel="noopener noreferrer">openllms</a>를 쓰면 돼요.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!--LLMS_PUBLIC_FOOTER-->
+  <script src="/assets/site-chrome.js" defer></script>
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>

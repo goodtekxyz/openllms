@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>llms — API 문서</title>
+  <meta name="description" content="에이전트와 OpenAI 호환 클라이언트를 위한 통합 API." />
+  <link rel="canonical" href="https://llms.goodtek.xyz/api" />
+  <script src="/assets/theme-boot.js"></script>
+  <link rel="stylesheet" href="/assets/install.css" />
+  <link rel="stylesheet" href="/assets/content.css" />
+</head>
+<body>
+  <!--LLMS_PUBLIC_HEADER-->
+
+  <div class="content-band content-band--prose">
+    <header class="hero">
+      <h1>API 문서</h1>
+      <p>Cursor·에이전트·스크립트에서 쓰는 OpenAI 호환 API예요. 주소와 키만 맞추면 됩니다.</p>
+      <p>기계가 읽기 좋은 원본: <a href="/LLMS_API.md"><code>/LLMS_API.md</code></a></p>
+    </header>
+
+    <article class="docs-body">
+      <section>
+        <h2>엔드포인트</h2>
+        <pre><code>POST https://llms.goodtek.xyz/v1/chat/completions
+Authorization: Bearer sk-gt-…
+Content-Type: application/json</code></pre>
+        <p>익숙한 OpenAI Chat Completions 형식이에요. Claude·Codex처럼 연결해 둔 계정에 Base URL 하나로 호출하면 됩니다.</p>
+      </section>
+      <section>
+        <h2>최소 요청</h2>
+        <pre><code>{
+  "model": "gpt-5.4-mini",
+  "messages": [
+    {"role": "system", "content": "You are helpful."},
+    {"role": "user", "content": "Hello"}
+  ],
+  "stream": true
+}</code></pre>
+      </section>
+      <section>
+        <h2>도구</h2>
+        <p>별도 검색/이미지 API는 없습니다. OpenAI처럼 같은 <code>chat/completions</code> 요청의 <code>tools</code>에 function tool로 넣으면 됩니다. 모델·계정이 지원하면 llms가 호스티드 웹 검색·이미지로 연결해 줘요.</p>
+        <table>
+          <thead><tr><th>클라이언트 함수</th><th>동작</th></tr></thead>
+          <tbody>
+            <tr><td><code>web_search</code></td><td>지원되면 웹 검색</td></tr>
+            <tr><td><code>generate_image</code></td><td>지원되면 이미지 생성</td></tr>
+            <tr><td>other functions</td><td>클라이언트가 직접 실행하도록 전달</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h2>선택 <code>llms</code> 힌트</h2>
+        <pre><code>{
+  "llms": {
+    "web_search": {"mode": "live"},
+    "session_key": "thread-abc"
+  }
+}</code></pre>
+      </section>
+      <section>
+        <h2>응답</h2>
+        <p>기본은 OpenAI chat completion 형식이에요. 필요하면 <code>llms</code> 확장(<code>account_id</code>, <code>provider</code>, <code>hosted_tools</code>)도 붙습니다.</p>
+      </section>
+      <section>
+        <h2>디스커버리</h2>
+        <ul>
+          <li><code>GET /control/v1/meta</code></li>
+          <li><code>GET /v1/models</code></li>
+          <li><a href="{{INSTALL_HREF}}">시작하기</a></li>
+        </ul>
+      </section>
+    </article>
+  </div>
+
+  <!--LLMS_PUBLIC_FOOTER-->
+  <script src="/assets/site-chrome.js" defer></script>
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>

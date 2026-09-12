@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>llms — サブスクを API に。複数アカウントもひとつに</title>
+  <meta name="description" content="ChatGPT Pro・Claude など、すでに払っているサブスクを API に。複数アカウントでも URL ひとつ、残り枠は自動管理。" />
+  <meta property="og:url" content="https://llms.goodtek.xyz/ja" />
+  <link rel="canonical" href="https://llms.goodtek.xyz/ja" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23111111'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-size='28' font-family='system-ui' fill='%23ffffff'%3Ell%3C/text%3E%3C/svg%3E" />
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="/assets/theme-boot.js"></script>
+  <link rel="stylesheet" href="/assets/landing.css" />
+</head>
+<body>
+  <a class="skip" href="#main">本文へ</a>
+  <!--LLMS_PUBLIC_HEADER-->
+
+  <section class="hero hero-simple" aria-label="llms">
+    <div class="hero-inner hero-inner-simple">
+      <div class="hero-copy">
+        <p class="brand-mark">llms</p>
+        <p class="trust-line"><a href="https://goodtek.xyz/" target="_blank" rel="noopener noreferrer">goodtek</a> が作っています</p>
+        <h1>すでに払っているサブスクで<br />API を作れます。</h1>
+        <p class="lede">ChatGPT Pro ひとつ、Claude ひとつ、あるいは GPT アカウントが複数でも—<strong>すでに払っているサブスク</strong>を llms にまとめれば、Cursor・IDE・ボットには<strong>アドレスひとつ</strong>だけ。呼び出しは OpenAI 互換の <code>chat/completions</code>、<strong>残り枠は自動で振り分け</strong>ます。</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/ja/install">はじめる</a>
+          <a class="btn btn-secondary" href="#routing">ルーティング方針</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main id="main">
+    <section class="block" id="how" aria-labelledby="how-title">
+      <div class="wrap">
+        <p class="kicker">はじめ方</p>
+        <h2 id="how-title">3 ステップ</h2>
+        <ol class="steps">
+          <li class="step"><div class="n">01</div><h3>アカウント接続</h3><p>ChatGPT Pro・Claude、追加の GPT アカウントや API キーを登録。</p></li>
+          <li class="step"><div class="n">02</div><h3>URL を作成</h3><p>ルートを作ると <code>/r/…/v1</code> が発行されます。</p></li>
+          <li class="step"><div class="n">03</div><h3>ツールに接続</h3><p>Base URL と <code>sk-gt</code> キーを設定。</p></li>
+        </ol>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/ja/install">インストール</a>
+          <a class="btn btn-secondary" href="{{INSTALL_HREF}}">クラウド</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="routing" aria-labelledby="routing-title">
+      <div class="wrap">
+        <p class="kicker">ルーティング</p>
+        <h2 id="routing-title">あなたの席をどう分けるか</h2>
+        <p class="section-lede"><strong>すでに持っている ChatGPT・Claude の席</strong>を、ルート URL ごとの方針で振り分けます。最初のトークンがクライアントに届く前にフェイルオーバーします。</p>
+        <ul class="policy-list">
+          <li><code>failover</code> — 主系→予備</li>
+          <li><code>balance</code> — 健全アカウントをラウンドロビン</li>
+          <li><code>prefer-primary</code> — 主席を 80/20 で優先</li>
+          <li><code>fill-first</code> — 1席を使い切ってから次へ</li>
+          <li><code>quota-first</code> — 残り枠が多い席を優先（同率ならリセットが近い方）</li>
+          <li><code>reset-soon</code> — 7d 枠のリセットが近い席から</li>
+          <li><code>steward</code> — 残量×リセット緊急度（OAuth 優先）</li>
+        </ul>
+        <p class="footnote"><code>llms route</code> で選び、<code>llms status</code> で確認。</p>
+      </div>
+    </section>
+
+    <section class="block" id="api" aria-labelledby="api-title">
+      <div class="wrap">
+        <p class="kicker">API</p>
+        <h2 id="api-title">呼び出し方</h2>
+        <p class="section-lede">OpenAI Chat Completions と同じ。エンドポイントはひとつ。Cursor・エージェント・スクリプト共通です。</p>
+        <div class="contract">
+          <code><strong>Base URL</strong> https://llms.goodtek.xyz/r/&lt;slug&gt;/v1</code>
+          <code><strong>呼び出し</strong> POST …/chat/completions</code>
+          <code><strong>認証</strong> Authorization: Bearer sk-gt-…</code>
+        </div>
+        <p class="api-note">OpenAI と同じです。<code>POST …/chat/completions</code> に <code>messages</code> を送るだけ。検索や画像が必要なら、<strong>同じリクエスト</strong>の <code>tools</code> に <code>web_search</code> / <code>generate_image</code> を追加。別 API はありません。</p>
+        <p class="footnote"><a href="{{API_DOCS_HREF}}">API ドキュメント</a></p>
+      </div>
+    </section>
+
+<section class="block" id="honesty" aria-labelledby="honesty-title">
+      <div class="wrap">
+        <p class="kicker">正直に</p>
+        <h2 id="honesty-title">自分のアカウント · 公式 OAuth · 上限はそのまま</h2>
+        <p class="section-lede">公式 OAuth で<strong>あなたが所有する</strong>アカウントだけを繋ぎます。資格情報の共有・転売はしません。公式 CLI への偽装もしません。プロバイダ上限と ToS はそのままです。</p>
+      </div>
+    </section>
+
+
+    <section class="block" id="self-host" aria-labelledby="selfhost-title">
+      <div class="wrap">
+        <p class="kicker">セルフホステッド</p>
+        <h2 id="selfhost-title">自分で動かすなら openllms</h2>
+        <p class="section-lede">クラウドではなく、自分の PC やサーバーで動かしたいとき用です。オープンソースの <strong>openllms</strong> はセルフホストなら<strong>使い放題・無料</strong>。Docker で一気に起動でき、ドメイン・セキュリティ・運用はご自身で。アカウント接続と状態確認は CLI で行います。</p>
+        <div class="cmd">$ <em>docker compose -f deploy/oss/docker-compose.yml up --build</em></div>
+        <p class="star-nudge">役立ったら GitHub で <a href="{{OPENLLMS_HREF}}" target="_blank" rel="noopener noreferrer">★ Star</a> を押してもらえると励みになります。</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="{{OPENLLMS_HREF}}" target="_blank" rel="noopener noreferrer">★ Star · openllms</a>
+          <a class="btn btn-secondary" href="/ja/install">クラウド導入</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="faq" aria-labelledby="faq-title">
+      <div class="wrap">
+        <p class="kicker">FAQ</p>
+        <h2 id="faq-title">よくある質問</h2>
+        <div class="faq-list">
+          <details class="faq-item"><summary>llms とは？</summary><p>すでに払っている ChatGPT・Claude サブスクを API として使う中継です。ChatGPT Pro ひとつ、Claude ひとつ、GPT が複数でも URL ひとつにまとめ、残り枠は自動管理します。</p></details>
+          <details class="faq-item"><summary>どんなツールに使える？</summary><p>OpenAI 互換 Base URL を受け付ける IDE・CLI・ボットならどれでも。</p></details>
+          <details class="faq-item"><summary>自前ホストは必要？</summary><p>必須ではありません。運用が重いと感じたら <a href="https://llms.goodtek.xyz">クラウド</a>（いま無料）へ。自分で回すなら <a href="{{OPENLLMS_HREF}}" target="_blank" rel="noopener noreferrer">openllms</a>。クラウドが必要なら CLI で <code>llms signal</code> と教えてください。</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!--LLMS_PUBLIC_FOOTER-->
+  <script src="/assets/site-chrome.js" defer></script>
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>
