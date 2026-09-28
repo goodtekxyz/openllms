@@ -115,7 +115,7 @@ func Load() (Config, error) {
 		SMTPPass:              os.Getenv("SMTP_PASS"),
 		NotifyEmailTo:         envOr("NOTIFY_EMAIL_TO", "hello@goodtek.xyz"),
 		NotifyEmailFrom:       envOr("NOTIFY_EMAIL_FROM", "llms@goodtek.xyz"),
-		PublicBaseURL:         strings.TrimRight(envOr("PUBLIC_BASE_URL", "https://llms.goodtek.xyz"), "/"),
+		PublicBaseURL:         strings.TrimRight(envOr("PUBLIC_BASE_URL", defaultPublicBaseURL), "/"),
 		GAMeasurementID:       strings.TrimSpace(os.Getenv("GA_MEASUREMENT_ID")),
 		DistDir:               strings.TrimSpace(os.Getenv("LLMS_DIST_DIR")),
 		BillingMock:           os.Getenv("BILLING_MOCK") == "true" || os.Getenv("BILLING_MOCK") == "1",

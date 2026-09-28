@@ -1,4 +1,4 @@
-.PHONY: test tidy build run compose-up compose-down health
+.PHONY: test tidy build run health
 
 export PATH := /usr/local/go/bin:$(PATH)
 
@@ -21,19 +21,13 @@ run: build
 	HTTP_ADDR=$${HTTP_ADDR:-:8080} \
 	./bin/llms-gateway
 
-compose-up:
-	podman compose -f deploy/podman-compose.yaml up --build -d
-
-compose-down:
-	podman compose -f deploy/podman-compose.yaml down
-
 health:
 	curl -sf http://127.0.0.1:8080/health
 	@echo
 	curl -sf http://127.0.0.1:8080/ready
 	@echo
 
-.PHONY: build-oss build-cloud oss-sync oss-sync-check oss-publish
+.PHONY: build-oss build-cloud
 
 # Default binary: public-first OSS (file secrets; no cloud/)
 build-oss:
@@ -44,23 +38,3 @@ build-oss:
 build-cloud:
 	go build -tags cloud -o bin/llms-gateway-cloud ./cmd/llms-gateway
 
-oss-sync:
-	./scripts/oss-sync.sh
-
-oss-sync-check: oss-sync
-	./scripts/oss-sync-check.sh .oss-export
-
-# Sync + check + push to github.com/goodtekxyz/openllms (requires git push access).
-oss-publish:
-	bash scripts/oss-publish.sh
-
-oss-publish-dry:
-	bash scripts/oss-publish.sh --dry-run
-
-.PHONY: vibeops-check vibeops-hooks
-
-vibeops-check:
-	bash scripts/vibeops-preflight.sh
-
-vibeops-hooks:
-	bash scripts/install-git-hooks.sh
