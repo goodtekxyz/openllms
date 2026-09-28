@@ -1,0 +1,491 @@
+/* llms billing — public pricing (extends app-shell.css) */
+
+.billing-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+  padding-bottom: 3rem;
+}
+
+.billing-hero {
+  max-width: 42rem;
+}
+
+.billing-kicker {
+  margin: 0 0 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.billing-hero h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  margin: 0 0 0.85rem;
+}
+
+.billing-hero .lead {
+  margin: 0 0 0.65rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+
+.billing-hero .sub {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.billing-trust {
+  margin: 0.5rem 0 0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+  color: var(--muted);
+  max-width: 40rem;
+}
+
+.billing-trust a {
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+.billing-trust a:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.billing-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.25rem;
+}
+
+.billing-why {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.billing-why h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.55rem;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.why-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 800px) {
+  .why-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.why-item h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.15rem;
+  letter-spacing: -0.03em;
+  margin: 0 0 0.4rem;
+}
+
+.why-item p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.status-card {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1.15rem 1.25rem;
+  background: var(--surface);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--ink) 4%, transparent);
+}
+
+.status-card h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.1rem;
+  letter-spacing: -0.03em;
+  margin: 0 0 0.85rem;
+}
+
+.status-card dl {
+  display: grid;
+  grid-template-columns: minmax(6.5rem, 8rem) 1fr;
+  gap: 0.4rem 1rem;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.status-card dt {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.status-card dd {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.billing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.plans-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.plans-head h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.55rem;
+  letter-spacing: -0.03em;
+  margin: 0 0 0.4rem;
+}
+
+.plans-lead {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  max-width: 40rem;
+}
+
+.plans-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+@media (min-width: 900px) {
+  .plans-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .plans-grid-single { grid-template-columns: minmax(0, 22rem); }
+}
+
+@media (min-width: 640px) and (max-width: 899px) {
+  .plans-grid { grid-template-columns: 1fr 1fr; }
+  .plans-grid-single { grid-template-columns: minmax(0, 22rem); }
+}
+
+.plan-card {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1.25rem 1.3rem;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  transition: border-color 0.2s var(--ease, ease), transform 0.2s var(--ease, ease);
+}
+
+.plan-card:hover {
+  border-color: var(--line-strong, var(--ink));
+  transform: translateY(-2px);
+}
+
+.plan-card-featured {
+  border-color: color-mix(in srgb, var(--ink) 35%, var(--line));
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--ink) 6%, transparent);
+}
+
+.plan-tag {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.plan-card h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.45rem;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.plan-price {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  color: var(--ink);
+  margin: 0;
+}
+
+.plan-price span {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.plan-card ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  flex: 1;
+}
+
+.plan-card .plan-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+  align-items: flex-start;
+}
+.plan-card .plan-actions .btn {
+  width: fit-content;
+  min-height: 2.75rem;
+  padding: 0.65rem 1.15rem;
+  white-space: nowrap;
+}
+
+.billing-pay-note {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.billing-how {
+  max-width: 40rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.billing-how h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.35rem;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.billing-how > p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.billing-cli {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.billing-cli code {
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--surface) 80%, var(--ink) 4%);
+}
+
+.billing-note {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.billing-note a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plan-card:hover { transform: none; }
+}
+
+@media (max-width: 640px) {
+  .status-card dl {
+    grid-template-columns: 1fr;
+    gap: 0.15rem 0;
+  }
+  .status-card dt { margin-top: 0.5rem; }
+}
+
+.crew-signal {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem 0 0.5rem;
+  border-top: 1px solid var(--line);
+  max-width: 36rem;
+}
+
+.crew-kicker {
+  margin: 0 0 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.crew-signal-head h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.55rem;
+  letter-spacing: -0.03em;
+  margin: 0 0 0.4rem;
+}
+
+.crew-lead {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.crew-meter {
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--surface) 70%, var(--ink) 3%);
+}
+
+.crew-count {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 6vw, 3.2rem);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.crew-count-label {
+  margin: 0.35rem 0 0;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.crew-total {
+  margin: 0.5rem 0 0;
+  font-size: 0.82rem;
+}
+
+.crew-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.crew-note-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.crew-form input[type="text"] {
+  font: inherit;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.crew-form input[type="text"]:focus {
+  outline: 2px solid color-mix(in srgb, var(--ink) 35%, transparent);
+  outline-offset: 1px;
+}
+
+.crew-brands {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.crew-brands a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.billing-routing {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 42rem;
+  padding-top: 0.5rem;
+}
+
+.billing-routing h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.55rem;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.billing-route-lead,
+.billing-route-diff {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.route-grid {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 0.35rem;
+}
+
+@media (min-width: 640px) {
+  .route-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.route-item {
+  padding: 0.9rem 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.route-item h3 {
+  margin: 0 0 0.35rem;
+  font-size: 0.95rem;
+}
+
+.route-item h3 code {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.route-item p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}

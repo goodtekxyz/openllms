@@ -1,0 +1,21 @@
+# llms.goodtek.xyz
+User-agent: *
+Allow: /
+Allow: /install
+Allow: /en
+Allow: /ja
+Allow: /zh
+Allow: /install.md
+Allow: /llms.txt
+Allow: /api
+Allow: /en/api
+Allow: /ja/api
+Allow: /zh/api
+Allow: /LLMS_API.md
+Disallow: /admin
+Disallow: /billing
+Disallow: /console
+Disallow: /control/
+Disallow: /r/
+
+Sitemap: https://llms.goodtek.xyz/sitemap.xml

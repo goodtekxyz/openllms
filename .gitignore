@@ -1,0 +1,18 @@
+
+.artifacts/
+artifacts/
+bin/
+coverage.out
+.cursor-screenshots/
+/data/
+dist/
+.DS_Store
+.env
+.env.*
+!.env.example
+*.exe
+# Host-persistent runtime data (Compose bind mounts)
+/llms
+# Local agent / UI capture artifacts (not shipped)
+node_modules/
+.oss-export/

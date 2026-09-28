@@ -1,0 +1,135 @@
+/* Shared app shell — console, billing (tokens+chrome via landing.css @import) */
+
+.app-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse 80% 50% at 10% -10%, var(--hero-glow) 0%, transparent 55%),
+    var(--surface);
+}
+
+.app-main {
+  width: min(var(--content-max), var(--measure));
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 3rem) 0 clamp(3.5rem, 7vw, 5rem);
+}
+
+.app-page-header {
+  margin-bottom: 1.75rem;
+  opacity: 0;
+  animation: app-rise 0.55s var(--ease) 0.04s forwards;
+}
+
+.app-page-header h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  font-size: clamp(1.75rem, 4vw, 2.35rem);
+  line-height: 1.15;
+  margin: 0 0 0.5rem;
+  color: var(--ink);
+}
+
+.app-page-header .lead {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.55;
+  max-width: 42rem;
+  margin: 0;
+}
+
+.app-page-header .sub {
+  color: var(--muted-2);
+  font-size: 0.9rem;
+  margin: 0.35rem 0 0;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.btn-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
+}
+
+.app-banner.info {
+  background: var(--surface-2);
+  border-color: var(--line-strong);
+  color: var(--muted);
+}
+
+.app-banner {
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  border: 1px solid var(--line);
+  animation: app-rise 0.4s var(--ease) forwards;
+}
+
+.app-banner.ok {
+  background: color-mix(in srgb, var(--ok) 12%, var(--surface));
+  border-color: color-mix(in srgb, var(--ok) 35%, var(--line));
+  color: var(--ok);
+}
+
+.app-banner.warn {
+  background: color-mix(in srgb, var(--warn) 12%, var(--surface));
+  border-color: color-mix(in srgb, var(--warn) 35%, var(--line));
+  color: var(--warn);
+}
+
+.app-banner.err {
+  background: color-mix(in srgb, #ef4444 10%, var(--surface));
+  border-color: color-mix(in srgb, #ef4444 35%, var(--line));
+  color: #b91c1c;
+}
+
+html.dark .app-banner.err {
+  color: #fca5a5;
+}
+
+.device-box {
+  margin-bottom: 1rem;
+  padding: 1rem 1.1rem;
+  border-radius: 12px;
+  border: 1px dashed var(--line-strong);
+  background: var(--surface-2);
+}
+
+.device-code {
+  font-family: var(--font-mono);
+  font-size: 1.35rem;
+  letter-spacing: 0.08em;
+  margin: 0.35rem 0;
+  color: var(--ink);
+}
+
+.hidden {
+  display: none !important;
+}
+
+@keyframes app-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-page-header,
+  .app-banner,
+  .app-page [class*="rise"] {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

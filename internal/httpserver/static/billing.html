@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="{{BILLING_LANG}}">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#111111" />
+  <title>{{BILLING_TITLE}}</title>
+  <meta name="description" content="{{BILLING_LEAD}}" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://llms.goodtek.xyz{{BILLING_HREF}}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="/assets/theme-boot.js"></script>
+  <link rel="stylesheet" href="/assets/landing.css" />
+  <link rel="stylesheet" href="/assets/app-shell.css" />
+  <link rel="stylesheet" href="/assets/billing.css" />
+</head>
+<body class="app-page billing-page">
+  <a class="skip" href="#main">{{BILLING_SKIP}}</a>
+  <!--LLMS_SITE_HEADER-->
+
+  <main id="main" class="app-main billing-main">
+    <header class="billing-hero">
+      <p class="billing-kicker">{{BILLING_KICKER}}</p>
+      <h1>{{BILLING_H1}}</h1>
+      <p class="lead">{{BILLING_LEAD}}</p>
+      <p class="sub">{{BILLING_SUB}}</p>
+      <p class="billing-trust">{{BILLING_TRUST}}</p>
+      <div class="billing-hero-actions">
+        <a class="btn btn-primary" href="{{INSTALL_HREF}}">{{BILLING_CTA_START}}</a>
+        <a class="btn btn-secondary" href="#crew-signal">{{BILLING_CTA_SIGNAL}}</a>
+      </div>
+    </header>
+
+    <section class="billing-why" aria-labelledby="why-title">
+      <h2 id="why-title">{{BILLING_WHY_TITLE}}</h2>
+      <div class="why-grid">
+        <div class="why-item">
+          <h3>{{BILLING_WHY1_TITLE}}</h3>
+          <p>{{BILLING_WHY1_BODY}}</p>
+        </div>
+        <div class="why-item">
+          <h3>{{BILLING_WHY2_TITLE}}</h3>
+          <p>{{BILLING_WHY2_BODY}}</p>
+        </div>
+        <div class="why-item">
+          <h3>{{BILLING_WHY3_TITLE}}</h3>
+          <p>{{BILLING_WHY3_BODY}}</p>
+        </div>
+      </div>
+    </section>
+
+    <div id="flash" class="app-banner ok hidden" role="status"></div>
+
+    <section id="status-panel" class="status-card hidden" aria-live="polite">
+      <h2>{{BILLING_PLAN_STATUS}}</h2>
+      <p class="muted" id="status-loading">{{BILLING_LOADING}}</p>
+      <div id="status-box"></div>
+      <div class="billing-actions">
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-free" disabled>{{BILLING_FREE_START}}</button>
+        <a class="btn btn-secondary btn-sm" href="{{INSTALL_HREF}}">{{BILLING_CLI_GUIDE}}</a>
+      </div>
+    </section>
+
+    <section id="plans" class="plans-section free-only" aria-labelledby="plans-title">
+      <div class="plans-head">
+        <h2 id="plans-title">{{BILLING_PLANS_TITLE}}</h2>
+        <p class="plans-lead">{{BILLING_PLANS_LEAD}}</p>
+      </div>
+
+      <div class="plans-grid plans-grid-single">
+        <article class="plan-card plan-card-featured">
+          <p class="plan-tag">{{BILLING_FREE_TAG}}</p>
+          <h3>Free</h3>
+          <p class="plan-price">$0 <span>{{BILLING_PERIOD}}</span></p>
+          <ul>
+            <li>{{BILLING_FREE_F1}}</li>
+            <li>{{BILLING_FREE_F2}}</li>
+            <li>{{BILLING_FREE_F3}}</li>
+          </ul>
+          <div class="plan-actions">
+            <button type="button" class="btn btn-primary" id="btn-free-plan" data-free>{{BILLING_FREE_START}}</button>
+          </div>
+        </article>
+      </div>
+
+      <p class="billing-pay-note">{{BILLING_PAY_NOTE}}</p>
+    </section>
+
+    <section id="routing" class="billing-routing" aria-labelledby="routing-title">
+      <h2 id="routing-title">{{BILLING_ROUTE_TITLE}}</h2>
+      <p class="billing-route-lead">{{BILLING_ROUTE_LEAD}}</p>
+      <p class="billing-route-diff">{{BILLING_ROUTE_DIFF}}</p>
+      <div class="route-grid">
+        <div class="route-item">
+          <h3><code>{{BILLING_ROUTE_F_TITLE}}</code></h3>
+          <p>{{BILLING_ROUTE_F_BODY}}</p>
+        </div>
+        <div class="route-item">
+          <h3><code>{{BILLING_ROUTE_FILL_TITLE}}</code></h3>
+          <p>{{BILLING_ROUTE_FILL_BODY}}</p>
+        </div>
+        <div class="route-item">
+          <h3><code>{{BILLING_ROUTE_B_TITLE}}</code></h3>
+          <p>{{BILLING_ROUTE_B_BODY}}</p>
+        </div>
+        <div class="route-item">
+          <h3><code>{{BILLING_ROUTE_P_TITLE}}</code></h3>
+          <p>{{BILLING_ROUTE_P_BODY}}</p>
+        </div>
+        <div class="route-item">
+          <h3><code>{{BILLING_ROUTE_Q_TITLE}}</code></h3>
+          <p>{{BILLING_ROUTE_Q_BODY}}</p>
+        </div>
+        <div class="route-item">
+          <h3><code>{{BILLING_ROUTE_R_TITLE}}</code></h3>
+          <p>{{BILLING_ROUTE_R_BODY}}</p>
+        </div>
+        <div class="route-item">
+          <h3><code>{{BILLING_ROUTE_S_TITLE}}</code></h3>
+          <p>{{BILLING_ROUTE_S_BODY}}</p>
+        </div>
+      </div>
+    </section>
+
+<section id="honesty" class="billing-honesty" aria-labelledby="honesty-title">
+      <h2 id="honesty-title">{{BILLING_HONESTY_TITLE}}</h2>
+      <p>{{BILLING_HONESTY_BODY}}</p>
+    </section>
+
+
+
+    <section id="crew-signal" class="crew-signal" aria-labelledby="crew-title">
+      <div class="crew-signal-head">
+        <p class="crew-kicker">{{BILLING_CREW_KICKER}}</p>
+        <h2 id="crew-title">{{BILLING_CREW_TITLE}}</h2>
+        <p class="crew-lead">{{BILLING_CREW_LEAD}}</p>
+      </div>
+      <div class="crew-meter" aria-live="polite">
+        <p class="crew-count"><span id="crew-week">—</span></p>
+        <p class="crew-count-label" id="crew-week-label">{{BILLING_CREW_WEEK}}</p>
+        <p class="crew-total muted" id="crew-total-line">{{BILLING_CREW_TOTAL}}</p>
+      </div>
+      <form id="crew-form" class="crew-form">
+        <label class="crew-note-label" for="crew-note">{{BILLING_CREW_NOTE_LABEL}}</label>
+        <input type="text" id="crew-note" name="note" maxlength="140" placeholder="{{BILLING_CREW_NOTE_PH}}" autocomplete="off" />
+        <button type="submit" class="btn btn-primary" id="btn-crew-signal">{{BILLING_CREW_CTA}}</button>
+      </form>
+      <p class="crew-brands">
+        {{BILLING_CREW_BRANDS}}
+        <a href="https://goodtek.xyz/" target="_blank" rel="noopener noreferrer">goodtek</a>
+        ·
+        <a href="https://vibecrew.jp/" target="_blank" rel="noopener noreferrer">VibeCrew</a>
+      </p>
+    </section>
+
+    <section class="billing-how" aria-labelledby="how-title">
+      <h2 id="how-title">{{BILLING_HOW_TITLE}}</h2>
+      <p>{{BILLING_HOW_LEAD}}</p>
+      <div class="billing-cli">
+        <code>llms plan</code>
+        <code>llms free</code>
+        <code>llms signal</code>
+      </div>
+      <p class="billing-note muted">{{BILLING_NOTE}}</p>
+    </section>
+  </main>
+
+  <!--LLMS_SITE_FOOTER-->
+
+  <script src="/assets/theme.js" defer></script>
+  <script src="/assets/site-chrome.js" defer></script>
+  <script>window.__BILLING_I18N = {{BILLING_I18N_JSON}};</script>
+  <script>
+  (function () {
+    var I18N = window.__BILLING_I18N || {};
+    var flash = document.getElementById("flash");
+    var statusPanel = document.getElementById("status-panel");
+    var statusBox = document.getElementById("status-box");
+    var statusLoading = document.getElementById("status-loading");
+    var btnFree = document.getElementById("btn-free");
+    var btnFreePlan = document.getElementById("btn-free-plan");
+    var crewWeek = document.getElementById("crew-week");
+    var crewTotalLine = document.getElementById("crew-total-line");
+    var crewForm = document.getElementById("crew-form");
+    var crewNote = document.getElementById("crew-note");
+    var btnCrew = document.getElementById("btn-crew-signal");
+    var signedIn = false;
+
+    function showFlash(kind, text) {
+      flash.className = "app-banner " + kind;
+      flash.textContent = text;
+      flash.classList.remove("hidden");
+    }
+
+    function needAuth() {
+      showFlash("info", I18N.NeedAuth || "Use the CLI: llms login · llms free");
+    }
+
+    function fmtNum(n) {
+      if (n == null || n === "") return "—";
+      if (typeof n === "string") {
+        var t = n.trim();
+        if (t === "" || t === "—") return "—";
+        if (Number.isNaN(Number(t))) return n;
+        n = t;
+      }
+      var num = Number(n);
+      if (!Number.isFinite(num)) return "—";
+      return num.toLocaleString("en-US");
+    }
+
+    function fmtLim(n) {
+      if (n == null || n === "") return "—";
+      if (Number(n) === 0) return I18N.Unlimited || "Unlimited";
+      return fmtNum(n);
+    }
+
+    function fmtCap(n) {
+      if (n == null || n === "") return "—";
+      if (Number(n) === 0) return I18N.None || "None";
+      return fmtNum(n);
+    }
+
+    function render(st) {
+      var lim = st.limits || {};
+      var use = st.usage_month || {};
+      var softCap = use.soft_cap_tokens != null ? use.soft_cap_tokens : lim.soft_cap_tokens;
+      statusLoading.classList.add("hidden");
+      statusBox.innerHTML =
+        "<dl>" +
+        "<dt>" + (I18N.Plan || "Plan") + "</dt><dd>" + (st.plan || "none") + "</dd>" +
+        "<dt>" + (I18N.Status || "Status") + "</dt><dd>" + (st.status || "none") + "</dd>" +
+        "<dt>" + (I18N.Entitled || "Entitled") + "</dt><dd>" + (st.entitled ? (I18N.Yes || "Yes") : (I18N.No || "No")) + "</dd>" +
+        "<dt>" + (I18N.Limits || "Limits") + "</dt><dd>" + (I18N.Accounts || "accounts") + " " + fmtLim(lim.accounts) + " · " + (I18N.Routes || "routes") + " " + fmtLim(lim.routes) + " · " + (I18N.Keys || "keys") + " " + fmtLim(lim.keys) + "</dd>" +
+        "<dt>" + (I18N.Usage || "Usage") + "</dt><dd>" + fmtNum(use.tokens_total || 0) + " / " + fmtCap(softCap) + "</dd>" +
+        "</dl>";
+      btnFree.disabled = !!st.entitled;
+      if (btnFreePlan) btnFreePlan.disabled = !!st.entitled;
+    }
+
+    function renderCrew(j) {
+      if (!crewWeek) return;
+      crewWeek.textContent = fmtNum(j.week_count || 0);
+      if (crewTotalLine) {
+        var tpl = I18N.CrewTotal || "All-time signals: {n}";
+        crewTotalLine.textContent = tpl.replace("{n}", fmtNum(j.total_count || 0));
+      }
+    }
+
+    function loadCrew() {
+      return fetch("/billing/api/crew-signal")
+        .then(function (r) { return r.json(); })
+        .then(renderCrew)
+        .catch(function () {});
+    }
+
+    function startFree() {
+      if (!signedIn) { needAuth(); return; }
+      btnFree.disabled = true;
+      if (btnFreePlan) btnFreePlan.disabled = true;
+      fetch("/billing/api/free", { method: "POST", credentials: "same-origin" })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+        .then(function (x) {
+          if (!x.ok) {
+            showFlash("err", x.j.error || I18N.FreeFail || "Free start failed");
+            btnFree.disabled = false;
+            if (btnFreePlan) btnFreePlan.disabled = false;
+            return;
+          }
+          showFlash("ok", I18N.FreeOK || "Free plan activated.");
+          render(x.j);
+        })
+        .catch(function (e) {
+          showFlash("err", String(e));
+          btnFree.disabled = false;
+          if (btnFreePlan) btnFreePlan.disabled = false;
+        });
+    }
+
+    btnFree.addEventListener("click", startFree);
+    if (btnFreePlan) btnFreePlan.addEventListener("click", startFree);
+
+    if (crewForm) {
+      crewForm.addEventListener("submit", function (ev) {
+        ev.preventDefault();
+        if (!signedIn) { needAuth(); return; }
+        btnCrew.disabled = true;
+        fetch("/billing/api/crew-signal", {
+          method: "POST",
+          credentials: "same-origin",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ note: (crewNote && crewNote.value) || "" })
+        })
+          .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+          .then(function (x) {
+            btnCrew.disabled = false;
+            if (!x.ok) {
+              showFlash("err", (x.j && (x.j.hint || x.j.error)) || I18N.CrewFail || "Signal failed");
+              return;
+            }
+            showFlash("ok", I18N.CrewOK || "Signal sent — thanks.");
+            renderCrew(x.j);
+            if (crewNote) crewNote.value = "";
+          })
+          .catch(function (e) {
+            btnCrew.disabled = false;
+            showFlash("err", String(e));
+          });
+      });
+    }
+
+    function load() {
+      return fetch("/billing/api/status", { credentials: "same-origin" })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+        .then(function (x) {
+          if (!x.ok) {
+            signedIn = false;
+            statusPanel.classList.add("hidden");
+            return;
+          }
+          signedIn = true;
+          statusPanel.classList.remove("hidden");
+          render(x.j);
+        })
+        .catch(function () {
+          signedIn = false;
+          statusPanel.classList.add("hidden");
+        });
+    }
+
+    load();
+    loadCrew();
+  })();
+  </script>
+</body>
+</html>

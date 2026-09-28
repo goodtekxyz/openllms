@@ -1,0 +1,31 @@
+/* Shared prose/content column — left edge aligns with chrome (--chrome-max band). */
+:root {
+  --prose-max: 820px;
+}
+
+.content-band {
+  width: min(var(--chrome-max), var(--measure));
+  margin-inline: auto;
+  text-align: start;
+  box-sizing: border-box;
+}
+
+/* Narrow readable measure without recentering (keeps left edge with nav). */
+.content-band--prose {
+  padding-inline-end: max(0px, calc(min(var(--chrome-max), var(--measure)) - var(--prose-max)));
+}
+
+.content-band .hero,
+.content-band .shell,
+.content-band article,
+.content-band .docs-body {
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+}
+
+.content-band .hero,
+.content-band article,
+.content-band .docs-body {
+  text-align: start;
+}

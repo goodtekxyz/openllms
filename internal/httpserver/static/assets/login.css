@@ -1,0 +1,61 @@
+/* llms login — centered GitHub CTA card */
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.25rem 4rem;
+}
+
+.login-card {
+  width: min(100%, 26rem);
+  text-align: center;
+}
+
+.login-card h1 {
+  margin: 0 0 0.65rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.75rem, 3.5vw, 2.15rem);
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+.login-lead {
+  margin: 0 0 1.5rem;
+  font-size: 0.975rem;
+  line-height: 1.55;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.login-github {
+  width: 100%;
+  min-height: 2.85rem;
+}
+
+.login-legal {
+  margin: 1.35rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.login-legal a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.login-legal a:hover {
+  color: var(--accent-hover);
+}
